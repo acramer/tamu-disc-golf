@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/acramer/tamu-disc-golf/issues"
   },
-  "homepage": "https://github.com/acramer/tamu-disc-golf#readme"
+  "homepage": "https://github.com/acramer/tamu-disc-golf#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
