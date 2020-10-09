@@ -1,4 +1,4 @@
-var PORT = process.env.PORT || 3000 //process.env.port is the port for heroku
+var PORT = process.env.PORT || 2000 //process.env.port is the port for heroku
 var express = require('express')
 var app = express()
 
