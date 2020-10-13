@@ -20,3 +20,8 @@ body {
 .navbar { 
     background-color: #632927; 
 } 
+
+.card-title {
+  color: #007bff;
+  margin-bottom: 0.75rem;
+}
