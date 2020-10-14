@@ -46,7 +46,7 @@ describe('navigation bar', function() {
 
   describe('Nav Bar contents', function() {
     before(function(done) {
-      this.browser.visit('', done);
+      this.browser.visit('/client/index.html', done);
     });
     before(function() {
       rawNav = this.browser.html('nav');
