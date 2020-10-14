@@ -1,9 +1,9 @@
 var PORT = process.env.PORT || 2000 //process.env.port is the port for heroku
 var express = require('express')
-var app = express()
 
 var http = require('http')
-var server = http.Server(app)
+
+const app = module.exports = express();
 
 app.use('/client', express.static(__dirname + '/client'))
 
@@ -13,6 +13,9 @@ app.get('/', function(req, res) {
 
 console.log(__dirname)
 
-server.listen(PORT, function() {
-    console.log('Server running, congratulations.')
-})
+module.exports = app;
+if (!module.parent) {
+  http.Server(app).listen(PORT, function(){
+    console.log('Server listening on port '+PORT+' congratulations.');
+  });
+}
