@@ -8,8 +8,6 @@ const assert = require('assert');
 describe('navigation bar', function() {
   var valid_routes = [
     {name:'landing',path: '/'                   ,},
-    {name:'about'  ,path: '/client/about.html'  ,},
-    {name:'contact',path: '/client/contact.html',},
   ];
 
   before(function() {
