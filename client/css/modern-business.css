@@ -37,3 +37,9 @@ body {
   overflow-y: scroll;
   max-height: 700px;
 }
+
+.content-title
+{
+    color: #632927;
+    text-decoration: underline;
+}
