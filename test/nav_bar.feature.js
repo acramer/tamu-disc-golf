@@ -9,20 +9,21 @@ describe('navigation bar', function() {
   var valid_routes = [
     {name:'landing' ,path: '/'                    ,},
     {name:'landing' ,path: '/client/index.html'   ,},
-    {name:'about'   ,path: '/client/about.html'   ,},
-    {name:'services',path: '/client/services.html',},
-    {name:'contact' ,path: '/client/contact.html' ,},
+    {name:'officers'   ,path: '/client/officers.html'   ,},
+    {name:'teams',path: '/client/teams.html',},
+    {name:'courses' ,path: '/client/courses.html' ,},
+    {name:'news' ,path: '/client/news.html' ,},
+    {name:'lostfound' ,path: '/client/lostfound.html' ,},
   ];
 
   var expected_contents = [
-    {name:'Club Name Item'  ,expected: 'TAMU Disc Golf',},
-    {name:'About Item'      ,expected: 'About'         ,},
-    {name:'Services Item'   ,expected: 'Services'      ,},
-    {name:'Contact Item'    ,expected: 'Contact'       ,},
-    {name:'Portfolio Item'  ,expected: 'Portfolio'     ,},
-    {name:'Blog Item'       ,expected: 'Blog'          ,},
-    {name:'Other Pages Item',expected: 'Other Pages'   ,},
-    {name:'Log in Item'     ,expected: 'Log In'        ,},
+    {name:'Club Name Item'        ,expected: 'TAMU Disc Golf',    },
+    {name:'Competitive Teams'     ,expected: 'Competitive Teams'  ,},
+    {name:'Officers'              ,expected: 'Officers'           ,},
+    {name:'Local Courses'         ,expected: 'Local Courses'      ,},
+    {name:'Lost & Found'          ,expected: 'Lost &amp; Found'   ,},
+    {name:'News/Recent Events'    ,expected: 'News/Recent Events' ,},
+    {name:'Log in Item'           ,expected: 'Log In'             ,},
   ];
 
   before(function() {
