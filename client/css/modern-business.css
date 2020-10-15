@@ -33,7 +33,7 @@ body {
     object-fit: cover;
 }
 
-#idk {
+#scroll {
   overflow-y: scroll;
   max-height: 700px;
 }
