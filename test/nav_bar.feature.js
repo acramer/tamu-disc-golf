@@ -22,6 +22,7 @@ describe('navigation bar', function() {
     {name:'Portfolio Item'  ,expected: 'Portfolio'     ,},
     {name:'Blog Item'       ,expected: 'Blog'          ,},
     {name:'Other Pages Item',expected: 'Other Pages'   ,},
+    {name:'Log in Item'     ,expected: 'Log In'        ,},
   ];
 
   before(function() {
