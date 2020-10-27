@@ -11,7 +11,7 @@ describe('log in button', function() {
     this.browser = new Browser({site: 'http://localhost:2000'})
   });
   before(function(done) {
-    this.browser.visit('/client/index.html', done);
+    this.browser.visit('/', done);
   });
 
   it('Log in button should be on the nav bar', function() {
