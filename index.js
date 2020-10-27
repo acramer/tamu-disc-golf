@@ -1,5 +1,8 @@
 var PORT = process.env.PORT || 2000 //process.env.port is the port for heroku
 var express = require('express')
+var fs = require('fs')
+var path = require('path')
+
 
 var http = require('http')
 
@@ -28,13 +31,8 @@ app.get('/db', async (req, res) => {
   })
 /*Database*/
 
-app.use('/client', express.static(__dirname + '/client'))
-
-app.get('/', function(req, res) {
-    res.redirect('/client/index.html');
-})
-
-console.log(__dirname)
+app.use(express.static(path.join(__dirname, 'client')))
+app.use(require('./routes/index.js'));
 
 module.exports = app;
 if (!module.parent) {

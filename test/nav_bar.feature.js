@@ -7,17 +7,16 @@ const assert = require('assert');
 
 describe('navigation bar', function() {
   var valid_routes = [
-    {name:'landing' ,path: '/'                    ,},
-    {name:'landing' ,path: '/client/index.html'   ,},
-    {name:'officers'   ,path: '/client/officers.html'   ,},
-    {name:'teams',path: '/client/teams.html',},
-    {name:'courses' ,path: '/client/courses.html' ,},
-    {name:'news' ,path: '/client/news.html' ,},
-    {name:'lostfound' ,path: '/client/lostfound.html' ,},
+    {name:'landing'   ,path: '/'             ,},
+    {name:'officers'  ,path: '/officers'     ,},
+    {name:'teams'     ,path: '/teams'        ,},
+    {name:'courses'   ,path: '/courses'      ,},
+    {name:'news'      ,path: '/news'         ,},
+    {name:'lostfound' ,path: '/lostandfound' ,},
   ];
 
   var expected_contents = [
-    {name:'Club Name Item'        ,expected: 'TAMU Disc Golf',    },
+    {name:'Club Name Item'        ,expected: 'TAMU Disc Golf'     ,},
     {name:'Competitive Teams'     ,expected: 'Competitive Teams'  ,},
     {name:'Officers'              ,expected: 'Officers'           ,},
     {name:'Local Courses'         ,expected: 'Local Courses'      ,},
@@ -48,7 +47,7 @@ describe('navigation bar', function() {
 
   describe('Nav Bar contents', function() {
     before(function(done) {
-      this.browser.visit('/client/index.html', done);
+      this.browser.visit('/', done);
     });
     before(function() {
       rawNav = this.browser.html('nav');
