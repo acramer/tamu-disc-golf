@@ -11,22 +11,6 @@ const app = module.exports = express();
 app.use(express.static(path.join(__dirname, 'client')))
 app.use(require('./routes/index.js'));
 
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/client/index.html');
-// })
-// 
-// app.get('/courses', function(req, res) {
-//     res.sendFile(__dirname + '/client/courses.html');
-// })
-// 
-// app.get('/officers', function(req, res) {
-//     res.sendFile(__dirname + '/client/officers.html');
-// })
-// 
-// app.get('/lostfound', function(req, res) {
-//     res.sendFile(__dirname + '/client/lostfound.html');
-// })
-
 module.exports = app;
 if (!module.parent) {
   http.Server(app).listen(PORT, function(){
