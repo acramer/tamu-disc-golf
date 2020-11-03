@@ -5,7 +5,7 @@ const Browser = require('zombie');
 const assert = require('assert');
 
 describe('lost and found', function() {
-  var route = {name:'landing' ,path: '/lostandfound'};
+  var route = {name:'page' ,path: '/lostandfound'};
   var expected_contents = [
     // Check if the lost and found image is present
     {name:'Image', expected: 'img#lfimage'},
@@ -18,7 +18,7 @@ describe('lost and found', function() {
     this.browser = new Browser({site: 'http://localhost:2000'})
   });
   
-  describe('Checking '+route.name+' page lost and found items',function() {
+  describe('Checking '+route.name+' lost and found items',function() {
     before(function(done) {
       this.browser.visit(route.path, done);
     });
@@ -27,7 +27,7 @@ describe('lost and found', function() {
     });
   });
   
-  describe('social media contents', function() {
+  describe('lost and found elements', function() {
     describe('Checking Existance of each required item', function() {
       expected_contents.forEach(function(item) {
         it('should contain "'+item.name+'"', function() {
