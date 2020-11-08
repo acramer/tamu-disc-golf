@@ -74,3 +74,8 @@ body {
     height: 12vw;
     object-fit: cover;
 }
+
+.btn-primary {
+    background-color: #632927 !important;
+    border-color: grey !important;
+}
