@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Modern Business - Start Bootstrap Template</title>
+  <title>TAMU Disc Golf</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,19 +28,75 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Lost & Found</h1>
-
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="index.html">Home</a>
-      </li>
-      <li class="breadcrumb-item active">Services</li>
-    </ol>
+    <h1 class="mt-4 mb-3 text-center">Lost & Found</h1>
 
     <!-- Image Header -->
-    <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt="">
+    <!-- <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt=""> -->
+
+    <!-- Form -->
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mx-3">
+          <div class="md-form mb-5">
+            <i class="fas fa-envelope prefix grey-text"></i>
+            <input type="email" id="defaultForm-email" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+          </div>
+  
+          <div class="md-form mb-4">
+            <i class="fas fa-lock prefix grey-text"></i>
+            <input type="password" id="defaultForm-pass" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+          </div>
+  
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button class="btn btn-default">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Launch
+      Modal Login Form</a>
+  </div>
 
     <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/lostfound/lostfound.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary" onclick="LostAndFoundForm()">More Info</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
       <div class="col-lg-4 mb-4">
         <div class="card h-100">
@@ -104,6 +160,8 @@
     $("#nav-placeholder").load("navbar.html");
   });
   </script>
+  <!-- Javascript -->
+  <script src="lost_and_found_form.js"></script>
 
 </body>
 

@@ -29,6 +29,7 @@ app.get('/db', async (req, res) => {
       res.send("Error " + err);
     }
   })
+
 /*Database*/
 
 app.use(express.static(path.join(__dirname, 'client')))
