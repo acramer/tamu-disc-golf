@@ -151,7 +151,6 @@
   </script>
   <script>
       //idk if this is hacky or not
-      /*
       options = {
           method : 'GET',
       }
@@ -166,42 +165,6 @@
 
             // Examine the text in the response
             response.json().then(function(data) {
-                var parent = document.getElementById("laf-deck")
-                for (i = 0; i < data.length; i++) {
-                    var row = data[i]
-                    var cardClass = document.createElement("div")
-                    cardClass.className += "col-4 mb-2"
-                    var card = document.createElement("div")
-                    card.className += "card"
-                    var card_header = document.createElement("h4")
-                    card_header.className += "card-header"
-                    card_header.innerHTML += data['title']
-                    var card_img = document.createElement("img")
-                    card_img.className += "card-img-top"
-                    card_img.src += "images/lostfound/lostfound.jpg"
-                    card_img.alt += "Card image cap"
-                    var card_footer = document.createElement("div")
-                    card_footer.className += "card-footer"
-                    var card_foot_btn = document.createElement("a")
-                    card_foot_btn.className += "btn btn-primary"
-                    card_foot_btn.onclick += "LostAndFoundForm()"
-                    card_foot_btn.innerHTML += "More Info"
-
-
-                    card_footer.appendChild(card_foot_btn)
-                    cardClass.appendChild(card_header)
-                    cardClass.appendChild(card_img)
-                    cardClass.appendChild(card_footer)
-                    parent.appendChild(cardClass)
-                }
-            });
-            }
-        )
-        .catch(function(err) {
-            console.log('Fetch Error :-S', err);
-        });
-        */
-       var data = [{title: 'Test 1'}, {title: 'Test 2'}, {title: 'Test 3'}]
         var parent = document.getElementById("laf-deck")
                 for (i = 0; i < data.length; i++) {
                     var row = data[i]
@@ -218,22 +181,80 @@
                     card_img.className += "card-img-top"
                     card_img.src += "images/lostfound/lostfound.jpg"
                     card_img.alt += "Card image cap"
-                    var card_footer = document.createElement("div")
-                    card_footer.className += "card-footer"
-                    var card_foot_btn = document.createElement("a")
-                    card_foot_btn.className += "btn btn-primary"
-                    card_foot_btn.onclick += "LostAndFoundForm()"
-                    card_foot_btn.innerHTML += "More Info"
-                    card_foot_btn.href += "#"
-
-
-                    card_footer.appendChild(card_foot_btn)
+                    var card_body = document.createElement("div")
+                    card_body.className += "card-body"
+                    var card_description = document.createElement("h6")
+                    card_description.className += "card-title"
+                    card_description.innerHTML += "Description:"
+                    var description = document.createElement("p")
+                    description.className += "card-text"
+                    description.innerHTML += row["description"]
+                    var card_email = document.createElement("h6")
+                    card_email.className += "card-title"
+                    card_email.innerHTML += "Email:"
+                    var email = document.createElement("p")
+                    email.className += "card-text"
+                    email.innerHTML += row["email"]
+   
                     card.appendChild(card_header)
                     card.appendChild(card_img)
-                    card.appendChild(card_footer)
+                    card.appendChild(card_description)
+                    card.append(description)
+                    card.appendChild(card_email)
+                    card.appendChild(email)
                     cardClass.appendChild(card)
                     parent.appendChild(cardClass)
                 }
+            });
+            }
+        )
+        .catch(function(err) {
+            console.log('Fetch Error :-S', err);
+        });
+        
+       /*
+       var data = [{title: 'Test 1', description: "This is a lost thing, come get pls", email:"chandlerochs@yahoo.com"}, {title: 'Test 2'}, {title: 'Test 3'}]
+        var parent = document.getElementById("laf-deck")
+                for (i = 0; i < data.length; i++) {
+                    var row = data[i]
+                    console.log(data[i])
+                    var cardClass = document.createElement("div")
+                    cardClass.className += "col-4 mb-2"
+                    var card = document.createElement("div")
+                    card.className += "card"
+                    card.style.cssText = "width: 18rem;"
+                    var card_header = document.createElement("h4")
+                    card_header.className += "card-header"
+                    card_header.innerHTML += row['title']
+                    var card_img = document.createElement("img")
+                    card_img.className += "card-img-top"
+                    card_img.src += "images/lostfound/lostfound.jpg"
+                    card_img.alt += "Card image cap"
+                    var card_body = document.createElement("div")
+                    card_body.className += "card-body"
+                    var card_description = document.createElement("h6")
+                    card_description.className += "card-title"
+                    card_description.innerHTML += "Description:"
+                    var description = document.createElement("p")
+                    description.className += "card-text"
+                    description.innerHTML += row["description"]
+                    var card_email = document.createElement("h6")
+                    card_email.className += "card-title"
+                    card_email.innerHTML += "Email:"
+                    var email = document.createElement("p")
+                    email.className += "card-text"
+                    email.innerHTML += row["email"]
+   
+                    card.appendChild(card_header)
+                    card.appendChild(card_img)
+                    card.appendChild(card_description)
+                    card.append(description)
+                    card.appendChild(card_email)
+                    card.appendChild(email)
+                    cardClass.appendChild(card)
+                    parent.appendChild(cardClass)
+                }
+                */
   </script>
 </body>
 
