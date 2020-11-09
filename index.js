@@ -47,6 +47,20 @@ app.post('/testing', async (req, res) => {
     }
   })
 
+app.get('/laf', async (req, res) => {
+    console.log('we here')
+    console.log(req.body['title'])
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM lost_and_found');
+      const results = { 'results': (result) ? result.rows : null};
+      res.json(results);
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 /*Database*/
 
 app.use(express.static(path.join(__dirname, 'client')))
