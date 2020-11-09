@@ -24,6 +24,9 @@ function submitLAFForm() {
     } catch (err) {
 
     }
+
+    location.reload()
+    return false
     
     //add the data to the database
 }
