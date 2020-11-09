@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!-- Javascript -->
+<script src="js\lost_and_found_form.js"></script>
 
 <head>
 
@@ -8,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Modern Business - Start Bootstrap Template</title>
+  <title>TAMU Disc Golf</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,61 +30,92 @@
   <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Lost & Found</h1>
-
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="index.html">Home</a>
-      </li>
-      <li class="breadcrumb-item active">Services</li>
-    </ol>
+    <h1 class="mt-4 mb-3 text-center">Lost & Found</h1>
 
     <!-- Image Header -->
-    <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt="">
+    <!-- <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt=""> -->
 
-    <!-- Marketing Icons Section -->
-    <div class="row">
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Disc</h4>
-          <div class="card-body">
-            <p class="card-text">Date: Oct 16, 2020</p>
-            <p class="card-text">Place: MSC</p>
-            <p class="card-text">Two Orange color discs</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
-          </div>
+    <!-- Form -->
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">Add to Lost and Found</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Gloves</h4>
-          <div class="card-body">
-            <p class="card-text">Date: Oct 20, 2020</p>
-            <p class="card-text">Place: Golf Club Entrance</p>
-            <p class="card-text">A pair of black color gloves</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-          <h4 class="card-header">Keys</h4>
-          <div class="card-body">
-            <p class="card-text">Date: Nov 1, 2020</p>
-            <p class="card-text">Place: Golf Field</p>
-            <p class="card-text">A mickey mouse shaped key bunch</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Learn More</a>
-          </div>
+        <div class="modal-body mx-3 font-weight-bold">
+            <form id="LAFSubmission">
+                <div class="form-group">
+                  <label for="exampleInputEmail1" class=>Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email to reach you at" required>
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid email.
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Phone Number</label>
+                    <input type="tel" class="form-control" id="LAFPhone" aria-describedby="phoneHelp" placeholder="Optional" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    <small id="phoneHelp" class="form-text text-muted font-weight-light">Number Format: 111-222-3333</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" maxlength="20" class="form-control" id="LAFTitle" placeholder="Type something..." required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Description</label>
+                    <input type="text" maxlength="150" class="form-control" id="LAFDescription" placeholder="Type something..." required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Upload an Image</label>
+                </div>
+                <div class="form-group">
+                    <input type="file" accept=".jpg,.png,.heic" id="LAFImage" onchange="loadFile(event)">
+                    <img id="output" width="250" />
+                </div>
+                <button class="btn btn-primary" type="submit" onclick="submitLAFForm()">Post your Find</button>
+            </form>
         </div>
       </div>
     </div>
-    <!-- /.row -->
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Post Your Find to Lost and Found</button>
+  </div>
+
+    <!-- Marketing Icons Section -->
+    <div class="card-deck">
+        <div class="col-4 mb-2">
+            <div class="card" style="width: 18rem;">
+                <h4 class="card-header">Beast Driver</h4>
+                <img class="card-img-top" src="images/lostfound/lostfound.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary" onclick="LostAndFoundForm()">More Info</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 mb-2">
+            <div class="card" style="width: 18rem;">
+                <h4 class="card-header">Buzzz</h4>
+                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 mb-2">
+            <div class="card" style="width: 18rem;">
+                <h4 class="card-header">Mini</h4>
+                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
   </div>
   <!-- /.container -->
@@ -105,6 +138,17 @@
   });
   </script>
 
+  <script>
+    document.getElementById('LAFSubmission').onsubmit= function(e){
+        e.preventDefault();
+    }
+  </script>
+  <script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+    </script>
 </body>
 
 </html>
