@@ -87,7 +87,7 @@
   </div>
 
     <!-- Marketing Icons Section -->
-    <div class="card-deck">
+    <div id="laf-deck" class="card-deck">
         <div class="col-4 mb-2">
             <div class="card" style="width: 18rem;">
                 <h4 class="card-header">Beast Driver</h4>
@@ -165,7 +165,33 @@
 
             // Examine the text in the response
             response.json().then(function(data) {
-                console.log(data);
+                var parent = document.getElementById("laf-deck")
+                for (i = 0; i < data.length; i++) {
+                    var row = data[i]
+                    var cardClass = document.createElement("div")
+                    cardClass.className += "col-4 mb-2"
+                    var card = document.createElement("div")
+                    card.className += "card"
+                    var card_header = document.createElement("h4")
+                    card_header.className += "card-header"
+                    card_header.innerHTML += data['title']
+                    var card_img = document.createElement("img")
+                    card_img.className += "card-img-top"
+                    card_img.src += "images/lostfound/lostfound.jpg"
+                    card_img.alt += "Card image cap"
+                    var card_footer = document.createElement("div")
+                    card_footer.className += "card-footer"
+                    var card_foot_btn = document.createElement("a")
+                    card_foot_btn.className += "btn btn-primary"
+                    card_foot_btn.onclick += "LostAndFoundForm()"
+                    card_foot_btn.innerHTML += "More Info"
+
+
+                    card_footer.appendChild(card_foot_btn)
+                    cardClass.appendChild(card_header)
+                    cardClass.appendChild(card_img)
+                    cardClass.appendChild(card_footer)
+                }
             });
             }
         )
