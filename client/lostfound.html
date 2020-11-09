@@ -86,36 +86,8 @@
     <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Post Your Find to Lost and Found</button>
   </div>
 
-    <!-- Marketing Icons Section -->
-    <div id="laf-deck" class="card-deck">
-        <div class="col-4 mb-2">
-            <div class="card" style="width: 18rem;">
-                <h4 class="card-header">Beast Driver</h4>
-                <img class="card-img-top" src="images/lostfound/lostfound.jpg" alt="Card image cap">
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary" onclick="LostAndFoundForm()">More Info</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 mb-2">
-            <div class="card" style="width: 18rem;">
-                <h4 class="card-header">Buzzz</h4>
-                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">More Info</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 mb-2">
-            <div class="card" style="width: 18rem;">
-                <h4 class="card-header">Mini</h4>
-                <img class="card-img-top" src="images/events/i1.jpg" alt="Card image cap">
-                <div class="card-footer">
-                    <a href="#" class="btn btn-primary">More Info</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Cards Section -->
+    <div id="laf-deck" class="card-deck"></div>
 
   </div>
   <!-- /.container -->
@@ -166,7 +138,6 @@
             // Examine the text in the response
             response.json().then(function(data) {
                 data = data["results"]
-                console.log(data)
                 var parent = document.getElementById("laf-deck")
                 for (i = 0; i < data.length; i++) {
                     var row = data[i]
@@ -190,7 +161,7 @@
                     card_description.innerHTML += "Description:"
                     var description = document.createElement("p")
                     description.className += "card-text"
-                    description.innerHTML += row["description"]
+                    description.innerHTML += row["details"]
                     var card_email = document.createElement("h6")
                     card_email.className += "card-title"
                     card_email.innerHTML += "Email:"
@@ -213,50 +184,6 @@
         .catch(function(err) {
             console.log('Fetch Error :-S', err);
         });
-        
-       /*
-       var data = [{title: 'Test 1', description: "This is a lost thing, come get pls", email:"chandlerochs@yahoo.com"}, {title: 'Test 2'}, {title: 'Test 3'}]
-        var parent = document.getElementById("laf-deck")
-                for (i = 0; i < data.length; i++) {
-                    var row = data[i]
-                    console.log(data[i])
-                    var cardClass = document.createElement("div")
-                    cardClass.className += "col-4 mb-2"
-                    var card = document.createElement("div")
-                    card.className += "card"
-                    card.style.cssText = "width: 18rem;"
-                    var card_header = document.createElement("h4")
-                    card_header.className += "card-header"
-                    card_header.innerHTML += row['title']
-                    var card_img = document.createElement("img")
-                    card_img.className += "card-img-top"
-                    card_img.src += "images/lostfound/lostfound.jpg"
-                    card_img.alt += "Card image cap"
-                    var card_body = document.createElement("div")
-                    card_body.className += "card-body"
-                    var card_description = document.createElement("h6")
-                    card_description.className += "card-title"
-                    card_description.innerHTML += "Description:"
-                    var description = document.createElement("p")
-                    description.className += "card-text"
-                    description.innerHTML += row["description"]
-                    var card_email = document.createElement("h6")
-                    card_email.className += "card-title"
-                    card_email.innerHTML += "Email:"
-                    var email = document.createElement("p")
-                    email.className += "card-text"
-                    email.innerHTML += row["email"]
-   
-                    card.appendChild(card_header)
-                    card.appendChild(card_img)
-                    card.appendChild(card_description)
-                    card.append(description)
-                    card.appendChild(card_email)
-                    card.appendChild(email)
-                    cardClass.appendChild(card)
-                    parent.appendChild(cardClass)
-                }
-                */
   </script>
 </body>
 
