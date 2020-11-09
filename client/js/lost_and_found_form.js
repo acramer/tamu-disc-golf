@@ -6,7 +6,7 @@ function submitLAFForm() {
     var details = document.getElementById("LAFDescription").value
     // result["image"] = document.getElementById("LAFImage").value
     var title = document.getElementById("LAFTitle").value
-    if (!title || !email || !details) {
+    if (!document.getElementById("LAFSubmission").checkValidity()) {
         return
     }
     console.log(result) 
@@ -22,7 +22,7 @@ function submitLAFForm() {
     try {
         document.getElementById("x").click()
     } catch (err) {
-        
+
     }
     
     //add the data to the database
