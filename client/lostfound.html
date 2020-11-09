@@ -148,7 +148,31 @@
         var image = document.getElementById('output');
         image.src = URL.createObjectURL(event.target.files[0]);
     };
-    </script>
+  </script>
+  <script>
+      //idk if this is hacky or not
+      options = {
+          method : 'GET',
+      }
+      fetch('/laf', options)
+        .then(
+            function(response) {
+            if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' +
+                response.status);
+                return;
+            }
+
+            // Examine the text in the response
+            response.json().then(function(data) {
+                console.log(data);
+            });
+            }
+        )
+        .catch(function(err) {
+            console.log('Fetch Error :-S', err);
+        });
+  </script>
 </body>
 
 </html>
