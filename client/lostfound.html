@@ -165,7 +165,7 @@
 
             // Examine the text in the response
             response.json().then(function(data) {
-                console.log("WE ARE HEREEEEE")
+                console.log(data)
                 var parent = document.getElementById("laf-deck")
                 for (i = 0; i < data.length; i++) {
                     var row = data[i]
