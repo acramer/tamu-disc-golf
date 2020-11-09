@@ -36,7 +36,7 @@ app.post('/testing', async (req, res) => {
     console.log(req.body['title'])
     try {
       const client = await pool.connect();
-      const result = await client.query('INSERT INTO users (title, email, details, phone_num) VALUES ($1, $2, $3, $4)', [req.body['title'], req.body['email'], req.body['details'], req.body['number']]);
+      const result = await client.query('INSERT INTO lost_and_found (title, email, details, phone_num) VALUES ($1, $2, $3, $4)', [req.body['title'], req.body['email'], req.body['details'], req.body['number']]);
       const results = { 'results': (result) ? result.rows : null};
       res.json(results);
       client.release();
