@@ -6,6 +6,9 @@ function submitLAFForm() {
     var details = document.getElementById("LAFDescription").value
     // result["image"] = document.getElementById("LAFImage").value
     var title = document.getElementById("LAFTitle").value
+    if (!document.getElementById("LAFSubmission").checkValidity()) {
+        return
+    }
     console.log(result) 
     const data = {email, number, details, title};
     const options = {
@@ -16,5 +19,11 @@ function submitLAFForm() {
         body: JSON.stringify(data)
     };
     fetch('/testing', options);
+    try {
+        document.getElementById("x").click()
+    } catch (err) {
+
+    }
+    
     //add the data to the database
 }
