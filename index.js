@@ -35,12 +35,15 @@ app.post('/testing', async (req, res) => {
     console.log('we here')
     console.log(req.body['title'])
     try {
-      const client = await pool.connect();
-      const result = await client.query('INSERT INTO lost_and_found (title, email, details, phone_num) VALUES ($1, $2, $3, $4)', [req.body['title'], req.body['email'], req.body['details'], req.body['number']]);
+        var title = req.body['title']
+        var email = req.body['email']
+        var details = req.body['details']
+        const client = await pool.connect();
+        const result = await client.query('INSERT INTO lost_and_found (title, email, details, phone_num) VALUES ($1, $2, $3, $4)', [title, email, details, req.body['number']]);
     //   const result = await client.query('SELECT * FROM test_table');
-      const results = { 'results': (result) ? result.rows : null};
-      res.json(results);
-      client.release();
+        const results = { 'results': (result) ? result.rows : null};
+        res.json(results);
+        client.release();
     } catch (err) {
       console.error(err);
       res.send("Error " + err);
