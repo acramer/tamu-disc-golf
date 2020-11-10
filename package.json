@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon server.js",
     "test": "nyc --reporter=text mocha --exit"
   },
   "repository": {
@@ -18,15 +19,24 @@
   },
   "homepage": "https://github.com/acramer/tamu-disc-golf#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-flash": "0.0.2",
     "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
     "handlebars-helpers": "^0.10.0",
     "mocha": "^8.1.3",
     "nyc": "^15.1.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0",
     "zombie": "^6.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
