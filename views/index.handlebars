@@ -66,6 +66,7 @@
         </div>
       </div>
       <!-- Upcoming Events -->
+      
       <div class="col-lg col-sm portfolio-item">
         <h2 class="col-lg col-sm text-center">
             Upcoming Events
@@ -73,62 +74,22 @@
         <div class="card h-100 show-scroll" id="scroll">
           <div class="card-body" >
             <!-- List of Upcoming Events -->
+            {{#each events}}
             <div class="col-lg col-sm portfolio-item">
               <div class="card h-100">
                 <img class="card-img-top" height="300" width="700" src="images/events/i1.jpg" alt="">
                 <div class="card-body">
                   <h4 class="card-title">
-                    New Member Orientation
+                    {{this.dataValues.event_title}}
                   </h4>
-                  <p class="card-text">Date: Oct 16, 2020</p>
-                  <p class="card-text">Time: 5 PM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Are you a new member to the Disc Golf Club? Join the orientation to know more about the club and it's policies.</p>
+                  <p class="card-text">Date: {{moment this.dataValues.event_date format="YYYY-MM-DD"}}</p>
+                  <p class="card-text">Time: {{moment this.dataValues.event_date format="hh:mm A"}}</p>
+                  <p class="card-text">Place: {{this.dataValues.event_place}}</p>
+                  <p class="card-text">{{this.dataValues.event_description}}</p>
                 </div>
               </div>
             </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i4.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Social Event
-                  </h4>
-                  <p class="card-text">Date: Oct 17, 2020</p>
-                  <p class="card-text">Time: 5 PM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Join us for a social event with Disc Golf members. Discuss about Golf, connect with people, and enjoy some great food.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i3.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Guest Lecture
-                  </h4>
-                  <p class="card-text">Date: Oct 19, 2020</p>
-                  <p class="card-text">Time: 11 AM</p>
-                  <p class="card-text">Place: MSC at Texas A&M</p>
-                  <p class="card-text">Want to know more about becoming a Disc Golf Champ? Come and join us for a guest lecture by a former champion.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i2.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    National Championship
-                  </h4>
-                  <p class="card-text">Date: Nov 15, 2020</p>
-                  <p class="card-text">Time: 11 AM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Witness our Aggies compete in the annual national championship</p>
-                </div>
-              </div>
-            </div>
+            {{/each}}
           </div>
         </div>
       </div>

@@ -4,20 +4,26 @@ var exphbs  = require('express-handlebars');
 var fs = require('fs')
 var path = require('path')
 var http = require('http')
+var Sequelize = require('sequelize')
 
 const app = module.exports = express();
 app.use(express.json());
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
+const db = require('./models/index.js')
+const Op = Sequelize.Op
+
+var helpers = require('handlebars-helpers')();
+
 /*Database*/
-const { Pool } = require('pg');
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+// const { Pool } = require('pg');
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
 
 // app.get('/db', async (req, res) => {
 //     try {
@@ -65,6 +71,20 @@ const pool = new Pool({
 //       res.send("Error " + err);
 //     }
 //   })
+
+app.get('/', function (req, res) {
+    db.events.findAll({
+      attributes: {exclude: ['createdAt', 'updatedAt']},
+      where: {event_date: {[Op.gt]: new Date()}},
+      order: [['event_date', 'ASC']],
+      limit: 3
+    })
+    .then(function(events) {
+      res.render('index', {
+        events: events
+      });
+    });
+  });
 // /*Database*/
 
 app.use(express.static(path.join(__dirname, 'views')))
