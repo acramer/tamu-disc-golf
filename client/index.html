@@ -97,64 +97,7 @@
             Upcoming Events
         </h2>
         <div class="card h-100 show-scroll" id="scroll">
-          <div class="card-body" >
-            <!-- List of Upcoming Events -->
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i1.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    New Member Orientation
-                  </h4>
-                  <p class="card-text">Date: Oct 16, 2020</p>
-                  <p class="card-text">Time: 5 PM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Are you a new member to the Disc Golf Club? Join the orientation to know more about the club and it's policies.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i4.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Social Event
-                  </h4>
-                  <p class="card-text">Date: Oct 17, 2020</p>
-                  <p class="card-text">Time: 5 PM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Join us for a social event with Disc Golf members. Discuss about Golf, connect with people, and enjoy some great food.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i3.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    Guest Lecture
-                  </h4>
-                  <p class="card-text">Date: Oct 19, 2020</p>
-                  <p class="card-text">Time: 11 AM</p>
-                  <p class="card-text">Place: MSC at Texas A&M</p>
-                  <p class="card-text">Want to know more about becoming a Disc Golf Champ? Come and join us for a guest lecture by a former champion.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg col-sm portfolio-item">
-              <div class="card h-100">
-                <img class="card-img-top" height="300" width="700" src="images/events/i2.jpg" alt="">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    National Championship
-                  </h4>
-                  <p class="card-text">Date: Nov 15, 2020</p>
-                  <p class="card-text">Time: 11 AM</p>
-                  <p class="card-text">Place: Texas A&M Campus</p>
-                  <p class="card-text">Witness our Aggies compete in the annual national championship</p>
-                </div>
-              </div>
-            </div>
+          <div class="card-body" id="upcoming-events">
           </div>
         </div>
       </div>
@@ -185,6 +128,84 @@
     $("#nav-placeholder").load("navbar.html");
   });
   </script>
+
+  <script>
+    options = {
+        method : 'GET',
+    }
+    fetch('/events', options)
+      .then(
+          function(response) {
+          if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+              return;
+          }
+
+        response.json().then(function(data) {
+            data = data["results"]
+            var parent = document.getElementById("upcoming-events")
+            if (data.length == 0) {
+              var cardClass = document.createElement("div")
+              cardClass.className += "col-lg col-sm portfolio-item"
+              var card = document.createElement("div")
+              card.className += "card h-100"
+              var card_body = document.createElement("div")
+              card_body.className += "card-body"
+              var card_header = document.createElement("h4")
+              card_header.className += "card-title"
+              card_header.innerHTML += "Oops! Sorry! No new events yet, stay tuned for upcoming events"
+              card_body.appendChild(card_header)
+              card.appendChild(card_body)
+              cardClass.appendChild(card)
+              parent.appendChild(cardClass)
+            }
+            for (i = 0; i < data.length; i++) {
+                var row = data[i]
+                var d = new Date(row['event_date'])
+                var cardClass = document.createElement("div")
+                cardClass.className += "col-lg col-sm portfolio-item"
+                var card = document.createElement("div")
+                card.className += "card h-100"
+                var card_img = document.createElement("img")
+                card_img.className += "card-img-top"
+                card_img.src += "images/events/i"+(i%4 + 1)+".jpg"
+                card_img.height = "300"
+                card_img.width = "700"
+                var card_body = document.createElement("div")
+                card_body.className += "card-body"
+                var card_header = document.createElement("h4")
+                card_header.className += "card-title"
+                card_header.innerHTML += row['event_title']
+                var date = document.createElement("p")
+                date.className += "card-text"
+                date.innerHTML = "Date: " + d.toLocaleDateString()
+                var time = document.createElement("p")
+                time.className += "card-text"
+                time.innerHTML = "Time: " + d.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
+                var place = document.createElement("p")
+                place.className += "card-text"
+                place.innerHTML = "Place: " + row["event_place"]
+                var description = document.createElement("p")
+                description.className += "card-text"
+                description.innerHTML = row["event_description"]
+                card_body.appendChild(card_header)
+                card_body.appendChild(date)
+                card_body.appendChild(time)
+                card_body.appendChild(place)
+                card_body.appendChild(description)
+                card.appendChild(card_img)
+                card.appendChild(card_body)
+                cardClass.appendChild(card)
+                parent.appendChild(cardClass)
+            }
+        });
+        }
+    )
+    .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+    });
+</script>
 
 </body>
 
