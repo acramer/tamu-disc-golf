@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "nyc --reporter=text mocha --exit"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mocha": "^8.2.1",
+    "express-handlebars": "^5.2.0",
     "nyc": "^15.1.0",
     "pg": "^8.4.2",
     "zombie": "^6.1.4"
