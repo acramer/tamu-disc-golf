@@ -1,190 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- Javascript -->
-<script src="js\lost_and_found_form.js"></script>
+<!-- Page Content -->
+<div class="container">
 
-<head>
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3 text-center">Lost & Found</h1>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <!-- Image Header -->
+  <!-- <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt=""> -->
 
-  <title>TAMU Disc Golf</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <!--Navigation bar-->
-  <div id="nav-placeholder"></div>
-  <!--end of Navigation bar-->
-
-  <!-- Page Content -->
-  <div class="container">
-
-    <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3 text-center">Lost & Found</h1>
-
-    <!-- Image Header -->
-    <!-- <img class="img-fluid rounded mb-4" id="lfimage" src="images/lostfound/lostfound.jpg" width=100% alt=""> -->
-
-    <!-- Form -->
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">Add to Lost and Found</h4>
-          <button type="button" class="close" id='x' data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body mx-3 font-weight-bold">
-            <form id="LAFSubmission">
-                <div class="form-group">
-                  <label for="exampleInputEmail1" class=>Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email to reach you at" required>
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a valid email.
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Phone Number</label>
-                    <input type="tel" class="form-control" id="LAFPhone" aria-describedby="phoneHelp" placeholder="Optional" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-                    <small id="phoneHelp" class="form-text text-muted font-weight-light">Number Format: 111-222-3333</small>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Title</label>
-                    <input type="text" maxlength="20" class="form-control" id="LAFTitle" placeholder="Type something..." required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Description</label>
-                    <input type="text" maxlength="150" class="form-control" id="LAFDescription" placeholder="Type something..." required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Upload an Image</label>
-                </div>
-                <div class="form-group">
-                    <input type="file" accept=".jpg,.png,.heic" id="LAFImage" onchange="loadFile(event)">
-                    <img id="output" width="250" />
-                </div>
-                <button class="btn btn-primary" type="submit" onclick="submitLAFForm()">Post your Find</button>
-            </form>
-        </div>
+  <!-- Form -->
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Add to Lost and Found</h4>
+        <button type="button" class="close" id='x' data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3 font-weight-bold">
+          <form id="LAFSubmission">
+              <div class="form-group">
+                <label for="exampleInputEmail1" class=>Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email to reach you at" required>
+              </div>
+              <div class="invalid-feedback">
+                  Please provide a valid email.
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Phone Number</label>
+                  <input type="tel" class="form-control" id="LAFPhone" aria-describedby="phoneHelp" placeholder="Optional" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                  <small id="phoneHelp" class="form-text text-muted font-weight-light">Number Format: 111-222-3333</small>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Title</label>
+                  <input type="text" maxlength="20" class="form-control" id="LAFTitle" placeholder="Type something..." required>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Description</label>
+                  <input type="text" maxlength="150" class="form-control" id="LAFDescription" placeholder="Type something..." required>
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Upload an Image</label>
+              </div>
+              <div class="form-group">
+                  <input type="file" accept=".jpg,.png,.heic" id="LAFImage" onchange="loadFile(event)">
+                  <img id="output" width="250" />
+              </div>
+              <button class="btn btn-primary" type="submit" onclick="submitLAFForm()">Post your Find</button>
+          </form>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="text-center">
-    <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Post Your Find to Lost and Found</button>
-  </div>
+<div class="text-center">
+  <button class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalLoginForm">Post Your Find to Lost and Found</button>
+</div>
 
-    <!-- Cards Section -->
-    <div id="laf-deck" class="card-deck"></div>
+  <!-- Cards Section -->
+  <div id="laf-deck" class="card-deck"></div>
 
-  </div>
-  <!-- /.container -->
+</div>
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- NavBar -->
-  <script>
-  $(function(){
-    $("#nav-placeholder").load("navbar.html");
-  });
-  </script>
-
-  <script>
-    document.getElementById('LAFSubmission').onsubmit= function(e){
-        e.preventDefault();
+<script>
+  document.getElementById('LAFSubmission').onsubmit= function(e){
+      e.preventDefault();
+  }
+</script>
+<script>
+  var loadFile = function(event) {
+      var image = document.getElementById('output');
+      image.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
+<script>
+    //idk if this is hacky or not
+    options = {
+        method : 'GET',
     }
-  </script>
-  <script>
-    var loadFile = function(event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
-  </script>
-  <script>
-      //idk if this is hacky or not
-      options = {
-          method : 'GET',
-      }
-      fetch('/laf', options)
-        .then(
-            function(response) {
-            if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +
-                response.status);
-                return;
-            }
+    fetch('/laf', options)
+      .then(
+          function(response) {
+          if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+              return;
+          }
 
-            // Examine the text in the response
-            response.json().then(function(data) {
-                data = data["results"]
-                var parent = document.getElementById("laf-deck")
-                for (i = 0; i < data.length; i++) {
-                    var row = data[i]
-                    console.log(data[i])
-                    var cardClass = document.createElement("div")
-                    cardClass.className += "col-4 mb-2"
-                    var card = document.createElement("div")
-                    card.className += "card"
-                    card.style.cssText = "width: 18rem;"
-                    var card_header = document.createElement("h4")
-                    card_header.className += "card-header"
-                    card_header.innerHTML += row['title']
-                    var card_img = document.createElement("img")
-                    card_img.className += "card-img-top"
-                    card_img.src += "images/lostfound/lostfound.jpg"
-                    card_img.alt += "Card image cap"
-                    var card_body = document.createElement("div")
-                    card_body.className += "card-body"
-                    var card_description = document.createElement("h6")
-                    card_description.className += "card-title"
-                    card_description.innerHTML += "Description:"
-                    var description = document.createElement("p")
-                    description.className += "card-text"
-                    description.innerHTML += row["details"]
-                    var card_email = document.createElement("h6")
-                    card_email.className += "card-title"
-                    card_email.innerHTML += "Email:"
-                    var email = document.createElement("p")
-                    email.className += "card-text"
-                    email.innerHTML += row["email"]
-   
-                    card.appendChild(card_header)
-                    card.appendChild(card_img)
-                    card.appendChild(card_description)
-                    card.append(description)
-                    card.appendChild(card_email)
-                    card.appendChild(email)
-                    cardClass.appendChild(card)
-                    parent.appendChild(cardClass)
-                }
-            });
-            }
-        )
-        .catch(function(err) {
-            console.log('Fetch Error :-S', err);
-        });
-  </script>
-</body>
-
-</html>
+          // Examine the text in the response
+          response.json().then(function(data) {
+              data = data["results"]
+              var parent = document.getElementById("laf-deck")
+              for (i = 0; i < data.length; i++) {
+                  var row = data[i]
+                  console.log(data[i])
+                  var cardClass = document.createElement("div")
+                  cardClass.className += "col-4 mb-2"
+                  var card = document.createElement("div")
+                  card.className += "card"
+                  card.style.cssText = "width: 18rem;"
+                  var card_header = document.createElement("h4")
+                  card_header.className += "card-header"
+                  card_header.innerHTML += row['title']
+                  var card_img = document.createElement("img")
+                  card_img.className += "card-img-top"
+                  card_img.src += "images/lostfound/lostfound.jpg"
+                  card_img.alt += "Card image cap"
+                  var card_body = document.createElement("div")
+                  card_body.className += "card-body"
+                  var card_description = document.createElement("h6")
+                  card_description.className += "card-title"
+                  card_description.innerHTML += "Description:"
+                  var description = document.createElement("p")
+                  description.className += "card-text"
+                  description.innerHTML += row["details"]
+                  var card_email = document.createElement("h6")
+                  card_email.className += "card-title"
+                  card_email.innerHTML += "Email:"
+                  var email = document.createElement("p")
+                  email.className += "card-text"
+                  email.innerHTML += row["email"]
+  
+                  card.appendChild(card_header)
+                  card.appendChild(card_img)
+                  card.appendChild(card_description)
+                  card.append(description)
+                  card.appendChild(card_email)
+                  card.appendChild(email)
+                  cardClass.appendChild(card)
+                  parent.appendChild(cardClass)
+              }
+          });
+          }
+      )
+      .catch(function(err) {
+          console.log('Fetch Error :-S', err);
+      });
+</script>
