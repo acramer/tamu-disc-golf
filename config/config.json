@@ -2,14 +2,14 @@
   "development": {
     "username": "postgres",
     "password": "root",
-    "database": "database_development",
+    "database": "tamu_disc_golf",
     "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "root",
-    "database": "database_development",
+    "database": "tamu_disc_golf",
     "host": "localhost",
     "dialect": "postgres"
   }
