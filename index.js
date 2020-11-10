@@ -3,12 +3,14 @@ var express = require('express')
 var exphbs  = require('express-handlebars');
 var fs = require('fs')
 var path = require('path')
-
-
 var http = require('http')
+
+
 
 const app = module.exports = express();
 app.use(express.json());
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 /*Database*/
 const { Pool } = require('pg');
