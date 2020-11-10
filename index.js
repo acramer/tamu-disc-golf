@@ -6,7 +6,18 @@ var path = require('path')
 var http = require('http')
 var Sequelize = require('sequelize')
 
+var bcrypt = require('bcrypt');
+var session = require('express-session');
+var flash = require('express-flash');
+var passport = require("passport")
+
 const app = module.exports = express();
+
+/*User Passport*/
+const initializePassport = require("./passportConfig");
+initializePassport(passport);
+/*User Passport*/
+
 app.use(express.json());
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -18,6 +29,12 @@ var helpers = require('handlebars-helpers')();
 
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(require('./routes/index.js'));
+
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/profile",
+    failureRedirect: "/login",
+    failureFlash: true
+}));
 
 module.exports = app;
 if (!module.parent) {

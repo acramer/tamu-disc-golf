@@ -2,9 +2,9 @@ var express = require('express')
 var router = express.Router();
 var path = require('path')
 
-router.get( '/', function( req, res, next ) {
-  // res.sendFile(path.resolve('client/lostfound.html') ) ;
-  res.render(path.resolve('views/lostfound'), {});
-} ) ;
+router.get( '/', (req, res) => {
+  //res.render(path.resolve('views/lostfound'));
+  res.render('lostfound');
+});
 
 module.exports = router
