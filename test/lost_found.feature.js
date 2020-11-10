@@ -7,8 +7,6 @@ const assert = require('assert');
 describe('lost and found', function() {
   var route = {name:'page' ,path: '/lostandfound'};
   var expected_contents = [
-    // Check if there is at least one card describing a lost and found item
-    {name:'Card', expected: 'div.card'},
     //Check if the lost and found button is present
     {name: 'Submit Button', expected: 'button#LAFSubmitBtn'},
     //Check if title is present
