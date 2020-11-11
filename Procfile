@@ -1,2 +1,1 @@
-release: chmod u+x config_db.py && python3 config_db.py
-web: set NODE_ENV=production && npm install && npx sequelize db:migrate:all && node index.js
+web: set NODE_ENV=production && python3 config_db.py && npm install && npx sequelize db:migrate && node index.js
