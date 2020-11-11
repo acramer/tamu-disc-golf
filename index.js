@@ -10,9 +10,10 @@ const app = module.exports = express();
 app.use(express.json());
 
 /*Database*/
+var url="postgres://wqjlggtbzvstyk:47e274afa81ead0a5dc59fbcf06e25b59d5161a24d2c69b84f5dcff933e36689@ec2-3-214-4-151.compute-1.amazonaws.com:5432/dc6b6uvlr0l7pn"
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: url,
   ssl: {
     rejectUnauthorized: false
   }
@@ -77,6 +78,20 @@ app.get('/events', async (req, res) => {
       res.send("Error " + err);
     }
   })
+
+  
+app.get('/officers-db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * from officers');
+    const results = { 'results': (result) ? result.rows : null};
+    res.json(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
 /*Database*/
 
 app.use(express.static(path.join(__dirname, 'client')))
