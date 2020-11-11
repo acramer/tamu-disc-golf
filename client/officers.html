@@ -61,8 +61,8 @@ Michael “T” Taylor - Team Captain
 Scottie Taylor - General Officer 1
 Parker Primm - General Officer 2 -->
 
-    <div class="row">
-      <div class="col-lg-4 mb-4" >
+    <div class="row" id="officers_section">
+      <!-- <div class="col-lg-4 mb-4" >
         <div class="card h-100 text-center">
           <img class="card-img-top" height="250"src=images\officers\officerplaceholder.png>
           <div class="card-body">
@@ -140,7 +140,7 @@ Parker Primm - General Officer 2 -->
           </div>
         </div>
       </div>
-      </div>
+      </div> -->
     </div>
     <!-- /.row -->
 
@@ -194,6 +194,67 @@ Parker Primm - General Officer 2 -->
     $("#nav-placeholder").load("navbar.html");
   });
   </script>
+ <script>
+  options = {
+      method : 'GET',
+  }
+  fetch('/officers-db', options)
+    .then(
+        function(response) {
+        if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+            return;
+        }
+
+      response.json().then(function(data) {
+          data = data["results"]
+          var parent = document.getElementById("officers_section")
+         
+          for (i = 0; i < data.length; i++) {
+              var row = data[i]
+              var cardClass = document.createElement("div")
+              cardClass.className += "col-lg-4 mb-4"
+              var card = document.createElement("div")
+              card.className += "card h-100 text-center"
+              var card_img = document.createElement("img")
+              card_img.className += "card-img-top"
+              card_img.src = "images/officers/officerplaceholder.png"
+              card_img.height = "250"
+              var card_body = document.createElement("div")
+              card_body.className += "card-body"
+              var c_name = document.createElement("h4")
+              c_name.className += "card-title"
+              c_name.innerHTML = row['name']
+              var c_position = document.createElement("h6")
+              c_position.className += "card-subtitle mb-2 text-muted"
+              c_position.innerHTML = row['position']
+              var c_about = document.createElement("p")
+              c_about.className += "card-text"
+              c_about.innerHTML = row['about']
+              var class_email = document.createElement("div")
+              class_email.className += "card-footer"
+              var c_email=document.createElement("a")
+              c_email.href="#"
+              c_email.innerHTML=row['email']
+              class_email.appendChild(c_email)
+              card_body.appendChild(c_name)
+              card_body.appendChild(c_position)
+              card_body.appendChild(c_about)
+              card_body.appendChild(class_email)
+              card.appendChild(card_img)
+              card.appendChild(card_body)
+              cardClass.appendChild(card)
+              parent.appendChild(cardClass)
+          }
+
+      });
+      }
+  )
+  .catch(function(err) {
+      console.log('Fetch Error :-S', err);
+  });
+</script>
 
 </body>
 
