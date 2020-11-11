@@ -27,6 +27,21 @@ const Op = Sequelize.Op
 
 var helpers = require('handlebars-helpers')();
 
+/*User Passport*/
+app.use(express.urlencoded({ extended: false }));
+app.use(
+    session({
+        secret: "secret",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+/*User Passport*/
+
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(require('./routes/index.js'));
 
