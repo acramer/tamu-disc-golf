@@ -10,10 +10,9 @@ const app = module.exports = express();
 app.use(express.json());
 
 /*Database*/
-var url="postgres://wqjlggtbzvstyk:47e274afa81ead0a5dc59fbcf06e25b59d5161a24d2c69b84f5dcff933e36689@ec2-3-214-4-151.compute-1.amazonaws.com:5432/dc6b6uvlr0l7pn"
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: url,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
