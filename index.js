@@ -77,6 +77,34 @@ app.get('/events', async (req, res) => {
       res.send("Error " + err);
     }
   })
+
+  
+app.get('/officers-db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * from officers');
+    const results = { 'results': (result) ? result.rows : null};
+    res.json(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
+app.get('/competitive-teams', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * from competitive_teams');
+    const results = { 'results': (result) ? result.rows : null};
+    res.json(results);
+    client.release();
+  } catch (err) {
+    console.error(err);
+    res.send("Error " + err);
+  }
+})
+
 /*Database*/
 
 app.use(express.static(path.join(__dirname, 'client')))
