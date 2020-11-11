@@ -52,7 +52,7 @@ Run all tests with the command
 ## Contributing
 Pull requests are welcome. Just create a Pull Request with your branch and someone will take a look.
 
-Please make sure to update tests as appropriate.
+Please make sure to update tests appropriately.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
