@@ -1,6 +1,6 @@
 
 # Tamu-disc-golf
-[![version](https://img.shields.io/badge/node-12.9.0-brightgreen.svg)]()&nbsp;&nbsp;&nbsp;&nbsp; [![version](https://img.shields.io/badge/npm-6.14.0-success.svg)](https://semver.org)&nbsp;&nbsp;&nbsp;&nbsp;[![Master Build](https://github.com/acramer/tamu-disc-golf/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/acramer/tamu-disc-golf/actions?query=workflow%3A%22Node.js+CI%22+branch%3Amaster)
+[![version](https://img.shields.io/badge/node-12.9.0-brightgreen.svg)](https://nodejs.org/en/)&nbsp;&nbsp;&nbsp;&nbsp; [![version](https://img.shields.io/badge/npm-6.14.0-success.svg)](https://www.npmjs.com/)&nbsp;&nbsp;&nbsp;&nbsp;[![Master Build](https://github.com/acramer/tamu-disc-golf/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/acramer/tamu-disc-golf/actions?query=workflow%3A%22Node.js+CI%22+branch%3Amaster)
 
 This is the repository for Tamu Disc Golf [Website](http://tamudiscgolf.herokuapp.com/client/index.html)
 
@@ -26,10 +26,10 @@ Also, be sure to have `git` available in your PATH, `npm` might need it (You can
 If the installation was successful, you should be able to run the following command.
 
     $ node --version
-    v8.11.3
+    v12.19.0
 
     $ npm --version
-    6.1.0
+    6.14.0
   - #### Installing all required packages on local system
 Once node and npm are installed, execute the following command to install all required packages from packages.json
 
@@ -110,7 +110,7 @@ Run all tests with the command
 ## Contributing
 Pull requests are welcome. Just create a Pull Request with your branch and someone will take a look.
 
-Please make sure to update tests as appropriate.
+Please make sure to update tests appropriately.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
