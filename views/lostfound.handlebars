@@ -59,7 +59,22 @@
 </div>
 
   <!-- Cards Section -->
-  <div id="laf-deck" class="card-deck"></div>
+  <div id="laf-deck" class="card-deck">
+    {{#each lf_item}}
+        <div class="col-4 mb-2">
+            <div class="card" style="width: 18rem;">
+                <h4 class="card-header">{{this.dataValues.title}}</h4>
+                <img class="card-img-top" src="images/lostfound/lostfound.jpg" alt="Lost and Found Item">
+                <div class="card-body">
+                    <h6 class="card-title">Description:</h6>
+                    <p class="card-text">{{this.dataValues.details}}</p>
+                    <h6 class="card-title">Contact Email:</h6>
+                    <p class="card-text">{{this.dataValues.email}}</p>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+  </div>
 
 </div>
 
