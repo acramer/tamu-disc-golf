@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class lost_and_found extends Model {
+  class lost_and_founds extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,14 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  lost_and_found.init({
+  lost_and_founds.init({
     details: DataTypes.TEXT,
     title: DataTypes.STRING,
     email: DataTypes.STRING,
-    phone: DataTypes.STRING
+    phone: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'lost_and_found',
+    modelName: 'lost_and_founds',
   });
-  return lost_and_found;
+  return lost_and_founds;
 };
