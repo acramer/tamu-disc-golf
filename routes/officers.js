@@ -11,7 +11,13 @@ router.get('/', (req, res) => {
     where: { [Op.or]: [ { role: 'admin' }, { role: 'officer' } ] },
   })
   .then(officers => {
-    res.render('officers', { officers: officers });
+    admin = false;
+    profile_pic = '';
+    if (req.user) {
+      admin = req.user.role === 'admin';
+      profile_pic = req.user.profile_pic;
+    }
+    res.render('officers', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, officers: officers });
   });
 });
 

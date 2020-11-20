@@ -15,8 +15,15 @@ body {
   margin: 0;
 }
 
-.mainbody{
+.mainbody {
   flex: 1 0 auto;
+}
+
+.profile-dropdown {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 30px;
+  height: auto;
 }
 
 .carousel-item {
