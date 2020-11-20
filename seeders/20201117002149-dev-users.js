@@ -59,6 +59,14 @@ module.exports = {
         'position': '',
         'profile_pic' : 'images/officers/officerplaceholder.png',
       },
+      { 'name': 'TestUser',
+        'email': 'testuser@testuser.com',
+        'password': '$2b$10$y0UrG1f.EuTsRZ2DlzaMfOVp5G3xsCkOzqU2TMG3lob/1p6GQPWeC',
+        'role' : 'member',
+        'about': 'testuser about',
+        'position': 'testuser position',
+        'profile_pic' : 'images/officers/officerplaceholder.png',
+      },
     ], {})
   },
 
