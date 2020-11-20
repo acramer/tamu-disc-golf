@@ -9,6 +9,18 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:10-2.5
+        env:
+          # must specify password for PG Docker container image, see: https://registry.hub.docker.com/_/postgres?tab=description&page=1&name=10
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: tamu_disc_golf
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     
     steps:
     - uses: actions/checkout@v2
@@ -18,5 +30,7 @@ jobs:
         node-version: '12.x'
     - run: npm ci
     - run: npm run build --if-present
+    - run: npx sequelize db:migrate:all
+    - run: npx sequelize db:seed:all
     - run: npm test
 
