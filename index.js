@@ -9,7 +9,7 @@ var Sequelize = require('sequelize')
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 var flash = require('express-flash');
-var passport = require("passport")
+var passport = require("passport");
 
 const app = module.exports = express();
 
@@ -42,7 +42,11 @@ app.use(passport.session());
 app.use(flash());
 /*User Passport*/
 
-app.use(express.static(path.join(__dirname, 'views')))
+//app.use(express.static(path.join(__dirname, 'views')));
+app.use('/css', express.static(path.join(__dirname, 'views/css')));
+app.use('/mail', express.static(path.join(__dirname, 'views/mail')));
+app.use('/vendor', express.static(path.join(__dirname, 'views/vendor')));
+app.use('/images', express.static(path.join(__dirname, 'views/images')));
 app.use(require('./routes/index.js'));
 
 app.post("/login", passport.authenticate("local", {
