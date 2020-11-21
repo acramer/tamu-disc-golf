@@ -9,7 +9,7 @@ var Sequelize = require('sequelize')
 var bcrypt = require('bcrypt');
 var session = require('express-session');
 var flash = require('express-flash');
-var passport = require("passport")
+var passport = require("passport");
 
 const app = module.exports = express();
 
