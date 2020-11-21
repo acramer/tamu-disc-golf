@@ -2,6 +2,14 @@
 <div class="container">
 
   <h1 class="mt-4 mb-3">Register</h1>
+
+    {{#if errors}}
+    <ul>
+        {{#each errors}}
+        <li>{{this.message}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
     
     <form action="/register" method="POST">
       <div class="control-group form-group">
