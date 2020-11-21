@@ -10,7 +10,13 @@ router.get( '/', (req, res) => {
     attributes: {exclude: ['createdAt', 'updatedAt']},
   })
   .then(lost_and_found => {
-    res.render('lostfound', { lost_and_found: lost_and_found });
+    admin = false;
+    profile_pic = '';
+    if (req.user) {
+      admin = req.user.role === 'admin';
+      profile_pic = req.user.profile_pic;
+    }
+    res.render('lostfound', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, lost_and_found: lost_and_found });
   });
 //   res.render('lostfound');
 });
