@@ -3,9 +3,13 @@
 
   <img src={{user.profile_pic}} />
   <h1 class="mt-4 mb-3">{{user.name}}</h1>
-  <h5 class="mt-4 mb-3">{{user.position}}</h5>
-  <p class="mt-4 mb-3">{{user.email}}</p>
-  <p class="mt-4 mb-3">{{user.about}}</p>
+  <a href="#" id="editDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit</a>
+  <div class="dropdown-menu dropdown-menu-left" aria-labelledby="editDropdown">
+    <a class="dropdown-item" href="editprofile/profile_pic">Change Profile Picture</a>
+    <a class="dropdown-item" href="editprofile/profile">Edit Profile</a>
+    <a class="dropdown-item" href="editprofile/changepassword">Change Password</a>
+    <a class="dropdown-item" href="editprofile/delete">Delete Account</a>
+  </div>
 
   {{#if messages}}
   {{#if messages.success_msg}}
@@ -16,51 +20,8 @@
   {{/if}}
   {{/if}}
 
-  <form action="/profile/update_profile_pic" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="profile_pic" name="profile_pic" placeholder="Profile Picture URL" value="{{user.profile_pic}}" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Profile Picture"/>
-    </div>
-  </form>
-  <form action="/profile/update_name" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="name" name="name" placeholder="Name" value="{{user.name}}" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Name"/>
-    </div>
-  </form>
-  <form action="/profile/update_email" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="email" name="email" placeholder="New Email" value="{{user.email}}" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Email"/>
-    </div>
-  </form>
-  <form action="/profile/update_about" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="about" name="about" placeholder="About me..." value="{{user.about}}" />
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Bio"/>
-    </div>
-  </form>
-  <form action="/profile/update_password" method="POST">
-    <div class="control-group form-group">
-        <input type="password" id="current_password" name="current_password" placeholder="Current Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="password" id="new_password" name="password" placeholder="New Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="password" id="new_password2" name="password2" placeholder="Confirm Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Password"/>
-    </div>
-  </form>
+  <h5 class="mt-4 mb-3">{{user.position}}</h5>
+  <p class="mt-4 mb-3">{{user.email}}</p>
+  <p class="mt-4 mb-3">{{user.about}}</p>
 
 </div>

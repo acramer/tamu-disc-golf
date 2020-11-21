@@ -196,9 +196,6 @@ router.post('/update_password', async (req,res) => {
         res.redirect('/profile');
     }else{
         let hashedPassword = await bcrypt.hash(password, 10);
-        console.log(old_hashed_password);
-        console.log(hashedPassword);
-
         bcrypt.compare(current_password, old_hashed_password, (err, isMatch) => {
             if (err){
                 throw err;
