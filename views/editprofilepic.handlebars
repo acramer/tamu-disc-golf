@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<div class="container">
+
+  {{#if messages}}
+  {{#if messages.success_msg}}
+  <div> {{messages.success_msg}} </div>
+  {{/if}}
+  {{#if messages.error}}
+  <div> {{messages.error}} </div>
+  {{/if}}
+  {{/if}}
+
+  <img src="{{profile_pic}}" alt="profile picture" />
+
+  <form action="/editprofilepic" method="POST">
+    <div class="control-group form-group">
+        <input type="text" id="profile_pic" name="profile_pic" placeholder="Profile Picture URL" value="{{user.profile_pic}}" required/>
+    </div>
+    <div class="control-group form-group">
+        <input type="submit" value="Update Profile Picture"/>
+    </div>
+  </form>
+
+  <a href='/profile'>Cancel</a>
+
+
+
+
+
+</div>
