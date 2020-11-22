@@ -3,9 +3,84 @@
 
   <h1 class="mt-4 mb-3">Admin</h1>
 
-  <div>
-    <h2>Events</h2>
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Add New Event</h4>
+        <button type="button" class="close" id='x' data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3 font-weight-bold">
+          <form id="event_submission">
+              <div class="form-group">
+                  <label>Title</label>
+                  <input type="text" class="form-control" id="title" placeholder="Type something..." required>
+              </div>
+              <div class="form-group">
+                  <label>Date</label>
+                  <input type="date" class="form-control" id="date" required>
+              </div>
+               <div class="form-group">
+                  <label>Time</label>
+                  <input type="time" class="form-control" id="time" required>
+              </div>
+              <div class="form-group">
+                  <label>Place</label>
+                  <input type="text" class="form-control" id="place" placeholder="Type something..." required>
+              </div>
+              <div class="form-group">
+                  <label>Description</label>
+                  <input type="text" class="form-control" id="description" placeholder="Type something..." required>
+              </div>
+              <input type="hidden" class="form-control" id="db_id">
+              <button class="btn btn-primary" type="submit" onclick="add_event()" id="event_add">Post your record</button>
+          </form>
+      </div>
+    </div>
   </div>
+</div>
+
+  
+<div class="table-responsive">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-8"><h2>Events</h2></div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#modalLoginForm" id='event_submit'>Add New</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Place</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each events}}
+            <tr id="{{this.dataValues.id}}">
+                <td>{{this.dataValues.event_title}}</td>
+                <td>{{moment this.dataValues.event_date format="YYYY-MM-DD"}}</td>
+                <td>{{moment this.dataValues.event_date format="hh:mm A"}}</td>
+                <td>{{this.dataValues.event_place}}</td>
+                <td>{{this.dataValues.event_description}}</td>
+                <td>
+                    <a class="edit" title="Edit" data-toggle="modal" data-target="#modalLoginForm" onclick="populate(this)"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete_icon" title="Delete" onclick="delete_row(this)"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
 
   <div>
     <h2>Officers</h2>
@@ -24,3 +99,81 @@
     <h2>Gallary</h2>
   </div>
 </div>
+
+<script>
+  document.getElementById('event_submission').onsubmit= function(e){
+      e.preventDefault();
+  }
+</script>
+<script>
+    function add_event() {
+        var title = document.getElementById("title").value
+        var date = document.getElementById("date").value
+        var time = document.getElementById("time").value
+        var place = document.getElementById("place").value
+        var description = document.getElementById("description").value
+        var id = document.getElementById("db_id").value
+        if (!title || !date || !time || !place || !description) {
+            return
+        }
+        var date_time = date + " " + time
+        if (!id) {
+            const data = {title, date_time, place, description};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/event_add', options);
+        }
+        else {
+            const data = {id, title, date_time, place, description};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/event_edit', options);
+        }
+        try {
+            document.getElementById("x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+    function populate(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("title").value = row.children[0].innerText
+        document.getElementById("date").value = row.children[1].innerText
+        time_formatting = new Date(row.children[1].innerText + " " + row.children[2].innerText).toISOString()
+        time_formatting = new Date(time_formatting)
+        minutes = time_formatting.getMinutes()
+        hours = time_formatting.getHours()
+        document.getElementById("time").value = hours + ':' + (minutes == '0'? '00' : minutes)
+        document.getElementById("place").value = row.children[3].innerText
+        document.getElementById("description").value = row.children[4].innerText
+        document.getElementById("db_id").value = row.id
+    }
+    function delete_row(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/event_delete', options);
+        location.reload()
+        return false
+    }
+
+</script>
