@@ -14,7 +14,7 @@ module.exports = {
       { 'name': 'Sam Mueck',
         'email': 'sam@abc.com',
         'password': '$2b$10$y0UrG1f.EuTsRZ2DlzaMfOVp5G3xsCkOzqU2TMG3lob/1p6GQPWeC',
-        'role' : 'admin',
+        'role' : 'officer',
         'about': 'Madness is like gravity, all it needs is a little push',
         'position': 'Treasurer',
         'profile_pic' : '../images/officers/officerplaceholder.png',

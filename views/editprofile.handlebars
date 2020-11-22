@@ -10,20 +10,9 @@
   {{/if}}
   {{/if}}
 
-  {{#if edit_profile_pic}}
-  <img src="../{{profile_pic}}" alt="profile picture" />
+  <h1>Update Profile</h1>
 
-  <form action="/editprofile/profile_pic" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="profile_pic" name="profile_pic" placeholder="Profile Picture URL" value="{{user.profile_pic}}" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Profile Picture"/>
-    </div>
-  </form>
-  {{/if}}
-  {{#if edit_profile}}
-  <form action="/editprofile/profile" method="POST">
+  <form action="/editprofile" method="POST">
     <div class="control-group form-group">
         <input type="text" id="name" name="name" placeholder="Name" value="{{user.name}}" required/>
     </div>
@@ -37,34 +26,6 @@
         <input type="submit" value="Update Profile"/>
     </div>
   </form>
-  {{/if}}
-  {{#if changepassword}}
-  <form action="/editprofile/changepassword" method="POST">
-    <div class="control-group form-group">
-        <input type="password" id="current_password" name="current_password" placeholder="Current Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="password" id="new_password" name="password" placeholder="New Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="password" id="new_password2" name="password2" placeholder="Confirm Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Update Password"/>
-    </div>
-  </form>
-  {{/if}}
-  {{#if delete_profile}}
-  <p>Please confirm that you wish to delete your profile by entering your password below:</p>
-  <form action="/editprofile/delete" method="POST">
-    <div class="control-group form-group">
-        <input type="password" id="password" name="password" placeholder="Password" required/>
-    </div>
-    <div class="control-group form-group">
-        <input type="submit" value="Delete Profile"/>
-    </div>
-  </form>
-  {{/if}}
 
   <a href='/profile'>Cancel</a>
 

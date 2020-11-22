@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon server.js",
-    "test": "nyc --reporter=text mocha --exit"
+    "test": "npm run seed && nyc --reporter=text mocha --exit",
+    "seed": "npx sequelize db:migrate && npx sequelize db:seed:undo:all && npx sequelize db:seed:all"
   },
   "repository": {
     "type": "git",

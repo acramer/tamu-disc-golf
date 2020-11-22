@@ -30,7 +30,7 @@ router.post('/', async (req,res) => {
         errors.push({ message: "Please enter a valid email address" });
     }
 
-    if (password.length < 6) {
+    if (password.length <= 6) {
         errors.push({ message: "Passwords must be longer than 6 characters" });
     }
 
@@ -52,7 +52,7 @@ router.post('/', async (req,res) => {
                 }
 
                 if (results.rows.length > 0) {
-                    errors.push({ message: "Emailed already registered" });
+                    errors.push({ message: "Email already registered" });
                     res.render('register',{errors});
                 }else{
                     pool.query(
@@ -63,7 +63,7 @@ router.post('/', async (req,res) => {
                             if (err) {
                                 throw err;
                             }
-                            req.flash('success_msg', 'Registraion Successful');
+                            req.flash('success_msg', 'Registration Successful');
                             res.redirect('/login');
                          }
                     );
