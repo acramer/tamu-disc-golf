@@ -76,9 +76,15 @@
 
     {{#each courses}}
       console.log(parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}"), {icon: myIcon});
-      L.marker([parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}")], riseOnHover=true)
-        .bindPopup("{{this.dataValues.name}}")
-        .addTo(map);
+      marker = L.marker([parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}")], riseOnHover=true).addTo(map);
+
+      marker.bindPopup("{{this.dataValues.name}}")
+      marker.on('mouseover', function (e) {
+          this.openPopup();
+      });
+      marker.on('mouseout', function (e) {
+          this.closePopup();
+      });
 
 
     {{/each}}
