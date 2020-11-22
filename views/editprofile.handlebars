@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <div class="container">
 
-  <a href="/logout">Logout</a>
-  <h1 class="mt-4 mb-3">Hello {{user}}</h1>
+  {{#if messages}}
+  {{#if messages.success_msg}}
+  <div> {{messages.success_msg}} </div>
+  {{/if}}
+  {{#if messages.error}}
+  <div> {{messages.error}} </div>
+  {{/if}}
+  {{/if}}
+
+  <h1>Update Profile</h1>
+
+  <form action="/editprofile" method="POST">
+    <div class="control-group form-group">
+        <input type="text" id="name" name="name" placeholder="Name" value="{{user.name}}" required/>
+    </div>
+    <div class="control-group form-group">
+        <input type="text" id="email" name="email" placeholder="New Email" value="{{user.email}}" required/>
+    </div>
+    <div class="control-group form-group">
+        <input type="text" id="about" name="about" placeholder="About me..." value="{{user.about}}" />
+    </div>
+    <div class="control-group form-group">
+        <input type="submit" value="Update Profile"/>
+    </div>
+  </form>
+
+  <a href='/profile'>Cancel</a>
+
+
+
+
+
 </div>

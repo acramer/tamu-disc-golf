@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<div class="container">
+
+  {{#if messages}}
+  {{#if messages.success_msg}}
+  <div> {{messages.success_msg}} </div>
+  {{/if}}
+  {{#if messages.error}}
+  <div> {{messages.error}} </div>
+  {{/if}}
+  {{/if}}
+
+  <h1>Delete Account</h1>
+  <p>Please confirm that you wish to delete your profile by entering your password below:</p>
+  <form action="/deleteprofile" method="POST">
+    <div class="control-group form-group">
+        <input type="password" id="password" name="password" placeholder="Password" required/>
+    </div>
+    <div class="control-group form-group">
+        <input type="submit" value="Delete Profile"/>
+    </div>
+  </form>
+
+  <a href='/profile'>Cancel</a>
+
+
+
+
+
+</div>
