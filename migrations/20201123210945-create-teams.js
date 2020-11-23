@@ -28,6 +28,14 @@ module.exports = {
       },
       member_name5: {
         type: Sequelize.STRING
+      },
+      createdAt: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: true,
+        type: Sequelize.DATE
       }
     });
   },
