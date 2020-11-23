@@ -2,7 +2,7 @@
 # Tamu-disc-golf
 [![version](https://img.shields.io/badge/node-12.9.0-brightgreen.svg)](https://nodejs.org/en/)&nbsp;&nbsp;&nbsp;&nbsp; [![version](https://img.shields.io/badge/npm-6.14.0-success.svg)](https://www.npmjs.com/)&nbsp;&nbsp;&nbsp;&nbsp;[![Master Build](https://github.com/acramer/tamu-disc-golf/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/acramer/tamu-disc-golf/actions?query=workflow%3A%22Node.js+CI%22+branch%3Amaster)
 
-This is the repository for Tamu Disc Golf [Website](http://tamudiscgolf.herokuapp.com/client/index.html)
+This is the repository for Tamu Disc Golf [Website](http://tamudiscgolf.herokuapp.com)
 
 ---
 ## Requirements
@@ -87,7 +87,7 @@ To run specific seeder files, which just populates the selected tables
 
 To generate a new seed file for a table,
 ```
-npx sequelize seed:generate --name <name-of-the-seed-file>
+ $ npx sequelize seed:generate --name <name-of-the-seed-file>
 ```
 **Note:** Running the seed files more than once will duplicate entries in the same table.
 

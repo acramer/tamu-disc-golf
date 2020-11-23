@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <div class="container">
 
-  <a href="/logout">Logout</a>
-  <h1 class="mt-4 mb-3">Hello {{user}}</h1>
+  <img src={{user.profile_pic}} />
+  <h1 class="mt-4 mb-3">{{user.name}}</h1>
+  <a href="#" id="editDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit</a>
+  <div class="dropdown-menu dropdown-menu-left" aria-labelledby="editDropdown">
+    <a class="dropdown-item" href="editprofilepic">Change Profile Picture</a>
+    <a class="dropdown-item" href="editprofile">Edit Profile</a>
+    <a class="dropdown-item" href="changepassword">Change Password</a>
+    <a class="dropdown-item" href="deleteprofile">Delete Account</a>
+  </div>
+
+  {{#if messages}}
+  {{#if messages.success_msg}}
+  <div> {{messages.success_msg}} </div>
+  {{/if}}
+  {{#if messages.error}}
+  <div> {{messages.error}} </div>
+  {{/if}}
+  {{/if}}
+
+  <h5 class="mt-4 mb-3">{{user.position}}</h5>
+  <p class="mt-4 mb-3">{{user.email}}</p>
+  <p class="mt-4 mb-3">{{user.about}}</p>
+
 </div>

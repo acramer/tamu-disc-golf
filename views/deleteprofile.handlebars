@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <div class="container">
 
-
-  <h1 class="mt-4 mb-3">Login</h1>
-
   {{#if messages}}
   {{#if messages.success_msg}}
   <div> {{messages.success_msg}} </div>
@@ -13,16 +10,21 @@
   {{/if}}
   {{/if}}
 
-  <form action="/login" method="POST">
-    <div class="control-group form-group">
-        <input type="text" id="email" name="email" placeholder="Email" required/>
-    </div>
+  <h1>Delete Account</h1>
+  <p>Please confirm that you wish to delete your profile by entering your password below:</p>
+  <form action="/deleteprofile" method="POST">
     <div class="control-group form-group">
         <input type="password" id="password" name="password" placeholder="Password" required/>
     </div>
     <div class="control-group form-group">
-        <input type="submit" value="Login"/>
+        <input type="submit" value="Delete Profile"/>
     </div>
-    <a href="/register">New? Register here</a>
   </form>
+
+  <a href='/profile'>Cancel</a>
+
+
+
+
+
 </div>

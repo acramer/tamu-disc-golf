@@ -12,4 +12,11 @@ function checkNotAuth(req, res, next){
     res.redirect("/login");
 }
 
-module.exports = { checkAuth, checkNotAuth };
+function checkNotAdmin(req, res, next){
+    if (req.isAuthenticated() && req.user.role === 'admin'){
+        return next();
+    }
+    res.redirect("/login");
+}
+
+module.exports = { checkAuth, checkNotAuth, checkNotAdmin };

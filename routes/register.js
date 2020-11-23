@@ -8,7 +8,13 @@ const { pool } = require("../dbConfig");
 const { checkAuth, checkNotAuth } = require("../authConfig.js");
 
 router.get('/', checkAuth, (req,res) => {
-    res.render("register");
+    admin = false;
+    profile_pic = '';
+    if (req.user) {
+      admin = req.user.role === 'admin';
+      profile_pic = req.user.profile_pic;
+    }
+    res.render("register", { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic });
 });
 
 
@@ -17,11 +23,15 @@ router.post('/', async (req,res) => {
     let errors = [];
 
     if (!name || !email || !password || !password2) {
-        errors.push({ message: "Please enter all fields." });
+        errors.push({ message: "Missing Fields" });
     }
 
-    if (password.length < 6) {
-        errors.push({ message: "Please enter a password longer than 6 characters." });
+    if (!/\S+@\S+\.\S+/.test(email)){
+        errors.push({ message: "Please enter a valid email address" });
+    }
+
+    if (password.length <= 6) {
+        errors.push({ message: "Passwords must be longer than 6 characters" });
     }
 
     if (password != password2) {
@@ -42,7 +52,7 @@ router.post('/', async (req,res) => {
                 }
 
                 if (results.rows.length > 0) {
-                    errors.push({ message: "User already exists" });
+                    errors.push({ message: "Email already registered" });
                     res.render('register',{errors});
                 }else{
                     pool.query(
@@ -53,7 +63,7 @@ router.post('/', async (req,res) => {
                             if (err) {
                                 throw err;
                             }
-                            req.flash('success_msg', 'You are now registered. Please log in.');
+                            req.flash('success_msg', 'Registration Successful');
                             res.redirect('/login');
                          }
                     );

@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 
 function initialize(passport) {
     const authenticateUser = (email, password, done) => {
+        if (!/\S+@\S+\.\S+/.test(email)){
+            return done(null, false, { message: "Please enter a valid email address" });
+        }
         pool.query(
             `select * from users where email = $1`,
             [email],
@@ -20,11 +23,11 @@ function initialize(passport) {
                         if (isMatch) {
                             return done(null, user);
                         } else {
-                            return done(null, false, { message: "Password is not correct" });
+                            return done(null, false, { message: "Email Password Combination is incorrect" });
                         }
                     });
                 } else {
-                    return done(null, false, { message: "User not found" });
+                    return done(null, false, { message: "Email Password Combination is incorrect" });
                 }
             }
         );
