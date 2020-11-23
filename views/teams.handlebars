@@ -18,15 +18,27 @@
 
   <!-- Marketing Icons Section -->
   <div class="row">
+    {{#each teams}}
     <div class="col-lg-4 mb-4">
       <div class="card h-100">
-        <h4 class="card-header">Team 1</h4>
+        <h4 class="card-header">{{this.dataValues.team_name}}</h4>
         <div class="card-body">
           <ol>
-            <li>Chandler Kramer</li>
-            <li>Michael T Taylor</li>
-            <li>Drew Fitzwater</li>
-            <li>Scottie Taylor</li>
+            {{#if this.dataValues.member_name1}}
+             <li>{{this.dataValues.member_name1}}</li>
+            {{/if}}
+             {{#if this.dataValues.member_name2}}
+             <li>{{this.dataValues.member_name2}}</li>
+            {{/if}}
+            {{#if this.dataValues.member_name3}}
+             <li>{{this.dataValues.member_name3}}</li>
+            {{/if}}
+             {{#if this.dataValues.member_name4}}
+             <li>{{this.dataValues.member_name4}}</li>
+            {{/if}}
+             {{#if this.dataValues.member_name5}}
+             <li>{{this.dataValues.member_name5}}</li>
+            {{/if}}
           </ol>
           <!-- <p class="card-text">Play in a team of two and win best throw, worst throw and Tough throw </p> -->
         </div>
@@ -35,24 +47,10 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">Teams 2</h4>
-        <div class="card-body">
-          <ol>
-            <li>Nathan Crosby</li>
-            <li>Garrison Thomas</li>
-            <li>Caleb Zuniga</li>
-            <li>Jacob Bright</li>
-          </ol>
-          <!-- <p class="card-text"> Here are the team registered with us.  </p> -->
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Learn More about the team</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 mb-4">
+    {{else}}
+      <p> no data </p>
+    {{/each}}
+    {{!-- <div class="col-lg-4 mb-4">
       <div class="card h-100">
         <h4 class="card-header">New Team Registration</h4>
         <div class="card-body">
@@ -61,7 +59,7 @@
         <div class="card-footer">
           <a href="#" class="btn btn-primary">Register Here</a>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
   <!-- /.row -->
