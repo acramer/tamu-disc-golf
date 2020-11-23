@@ -6,9 +6,8 @@ const db = require('../models/index.js')
 const Op = Sequelize.Op
 
 router.get('/', (req, res) => {
-  db.users.findAll({
+  db.officers.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
-    where: { [Op.or]: [ { role: 'admin' }, { role: 'officer' } ] },
   })
   .then(officers => {
     admin = false;
