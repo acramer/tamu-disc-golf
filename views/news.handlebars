@@ -1,56 +1,315 @@
 <!-- Page Content -->
 <div class="container">
+<style>
+      * {
+          box-sizing: border-box;
+      }
 
+      ul {
+          list-style-type: none;
+      }
+
+      body {
+          font-family: "Lato", sans-serif;
+      }
+
+      * {
+          margin: 0;
+          box-sizing: border-box;
+      }
+
+      .wrapper {
+          background-color: #fff;
+          width: 60vw;
+          height: 60vh;
+          display: flex;
+      }
+
+      .calendar {
+          margin: auto;
+          width: 600px;
+          background-color: #fff;
+          box-shadow: 0px 0px 15px 4px rgba(0, 0, 0, 0.2);
+      
+      }
+
+      .month {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding: 40px 30px;
+          text-align: center;
+          background-color: #632927
+      }
+
+      .weekdays {
+          background-color: 	#632927de;
+          color: #fff;
+          padding: 7px 0;
+          display: flex;
+      }
+
+      .days {
+          font-weight: 300;
+          padding: 10px 0;
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .weekdays div,
+      .days div {
+          text-align: center;
+          width: 14.28%;
+      }
+
+      .days div {
+          padding: 10px 0;
+          margin-bottom: 10px;
+          transition: all 0.4s;
+      }
+
+      .prev_date {
+          color: #999;
+      }
+
+      .today {
+          background-color: #3535354d;
+          color: #000;
+      }
+
+      .days div:hover {
+          cursor: pointer;
+          background-color: #dfe6e9
+      }
+
+      .prev,
+      .next {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          font-size: 23px;
+          background-color: rgba(255, 255, 255, 0.486);
+          transition: all 0.4s;
+      }
+
+      .prev:hover,
+      .next:hover {
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      #month {
+          font-size: 30px;
+          font-weight: 500;
+          color: #fff;
+      }
+  </style>
   <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">News/ Recent Events
-    <small>Subheading</small>
+  <h1 class="mt-4 mb-3">Events
+    {{!-- <small>Subheading</small> --}}
   </h1>
 
-  <ol class="breadcrumb">
+  {{!-- <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <a href="index.html">Home</a>
     </li>
     <li class="breadcrumb-item active">Services</li>
-  </ol>
+  </ol> --}}
 
   <!-- Image Header -->
-  <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt="">
-
+  {{!-- <img class="img-fluid rounded mb-4" src="http://placehold.it/1200x300" alt=""> --}}
+  
   <!-- Marketing Icons Section -->
   <div class="row">
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">Card Title</h4>
-        <div class="card-body">
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+    
+    <body onload="renderDate()">
+    <div class="wrapper">
+        <div class="calendar">
+            <div class="month">
+                <div class="prev" onclick="moveDate('prev')">
+                    <span>&#10094;</span>
+                </div>
+                <div>
+                    <h2 id="month" ></h2>
+                    <p id="date_str" style="color: #fff;"></p>
+                </div>
+                <div class="next" onclick="moveDate('next')">
+                    <span>&#10095;</span>
+                </div>
+            </div>
+            <div class="weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div class="days" >
+            </div>
         </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Learn More</a>
-        </div>
-      </div>
+        <div class="card show-scroll" id="scroll" style="align-items: center; display:none; height:min-content;align-self:center"></div>
+        
     </div>
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">Card Title</h4>
-        <div class="card-body">
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis ipsam eos, nam perspiciatis natus commodi similique totam consectetur praesentium molestiae atque exercitationem ut consequuntur, sed eveniet, magni nostrum sint fuga.</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Learn More</a>
-        </div>
-      </div>
     </div>
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">Card Title</h4>
-        <div class="card-body">
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">Learn More</a>
-        </div>
-      </div>
-    </div>
+    
+    <script>
+        var dt = new Date();
+        console.log(dt.getFullYear())
+        console.log(dt.getMonth())
+        var news={}
+        {{#each events}}
+          news["{{moment this.dataValues.event_date format='YYYY-MM-DD'}}"]={
+              "{{moment this.dataValues.event_date format = 'hh:mm A'}}":{
+                  "title":"{{this.dataValues.event_title}}",
+                  "place":"{{this.dataValues.event_place}}",
+                  "description":"{{this.dataValues.event_description}}"}
+                }
+            //console.log(news["{{moment this.dataValues.event_date format='YYYY-MM-DD'}}"]["{{moment this.dataValues.event_date format = 'hh:mm A'}}"]["description"])
+
+        {{/each}}
+        //var dates = {3:{"d_date":3, "title":"why beku" ,"place": "this place","Time":"this time", "date":"okay", "description":"beda pa"},14:{"d_date":14, "place": "yavdo place","Time":"yavdo time","not necessary":"why beku" , "date":"bidappa", "description":"yaake beku pa"}};
+        function renderDate() {
+            dt.setDate(1)
+            var day = dt.getDay();
+            var today = new Date();
+            var endDate = new Date(
+                dt.getFullYear(),
+                dt.getMonth()+1,
+                0
+            ).getDate();
+
+            var prevDate = new Date(
+                dt.getFullYear(),
+                dt.getMonth() + 1,
+                0
+            ).getDate();
+            var prevDateIndex=new Date(
+                dt.getFullYear(),
+                dt.getMonth() + 1,
+                0
+            ).getDay();
+            
+
+            var months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ]
+            document.getElementById("month").innerHTML = months[dt.getMonth()];
+            //document.getElementById("date_str").innerHTML = today.toLocaleDateString();
+            var cells = "";
+            for (x = day; x > 0; x--) {
+                cells += "<div class='prev_date'>" + (prevDate - x + 1) + "</div>";
+            }
+            console.log(day);
+            for (i = 1; i <= endDate; i++) {
+                var check_date = dt.toISOString().slice(0,8);
+                console.log(check_date);
+                var c_d=""
+                if( i < 10){
+                    c_d="0"+i.toString()
+                }else {
+                    c_d=i.toString()
+                }
+
+                var final_date=check_date+c_d
+                if (final_date in news){
+                    cells += "<div class='today'" +" id = " +final_date+" onclick='onDate(this)'>" + i + "</div>";
+                }
+                else{
+                    cells += "<div id ='no_display' onclick='onDate(this)'>" + i + "</div>";
+                }
+                
+            }
+            document.getElementsByClassName("days")[0].innerHTML = cells;
+
+            
+        }
+
+        function onDate(elem){
+          var d = elem.id.toString();
+          //console.log(d)
+          if(document.getElementById("d_body")){
+              document.getElementById("d_body").remove();
+          }
+          var card=document.getElementById("scroll");
+          var d_body=document.createElement("div");
+          d_body.className="card-body";
+          d_body.setAttribute("id" , "d_body");
+          card.appendChild(d_body)
+          if(d in news){
+              document.getElementById("date_str").innerHTML = d;
+              card.style.display="block";
+              for(i in news[d]){
+                  var d_class = document.createElement("div");
+                  d_class.className="col-lg mb";
+                  var d_ch = document.createElement("div");
+                  d_ch.className = "card";
+                  var card_header=document.createElement("h4");
+                  card_header.className="card-header";
+                  card_header.innerHTML=news[d][i]["title"];
+                  var card_body=document.createElement("div");
+                  card_body.className="card-body";
+                  var card_description=document.createElement("p");
+                  card_description.className="card-text";
+                  card_description.innerHTML=news[d][i]["description"]
+                  var card_footer=document.createElement("div");
+                  card_footer.className="card-footer";
+                  var card_d = document.createElement("p");
+                  card_d.className="card-text";
+                  card_d.innerHTML="Date: "+ d;
+                  var card_t = document.createElement("p");
+                  card_t.className="card-text";
+                  card_t.innerHTML="Time: "+ i.toString();
+                  var card_p = document.createElement("p");
+                  card_p.className="card-text";
+                  card_p.innerHTML="Place: " + news[d][i]["place"];
+
+                  card_footer.appendChild(card_d);
+                  card_footer.appendChild(card_t);
+                  card_footer.appendChild(card_p);
+
+                  card_body.appendChild(card_description)
+
+                  d_ch.appendChild(card_header)
+                  d_ch.appendChild(card_body)
+                  d_ch.appendChild(card_footer)
+
+                  d_class.appendChild(d_ch)
+
+                  d_body.appendChild(d_class)
+              }    
+          }else{
+              card.style.display="none";
+              document.getElementById("date_str").innerHTML = "";
+          }
+        
+        }
+        function moveDate(para) {
+            if(para == "prev") {
+                dt.setMonth(dt.getMonth() - 1);
+            } else if(para == 'next') {
+                dt.setMonth(dt.getMonth() + 1);
+            }
+            renderDate();
+        }
+    </script>
+</body>
   </div>
   <!-- /.row -->
 
