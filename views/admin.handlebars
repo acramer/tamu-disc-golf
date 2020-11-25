@@ -2,7 +2,7 @@
 
 <div class="container">
     <h1 class="mt-4 mb-3">Admin</h1>
-    
+
     <!-- Form for editing events -->
     <div class="modal fade" id="eventsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -79,6 +79,46 @@
         </div>
     </div>
 
+      <!-- Form for editing teams -->
+    <div class="modal fade" id="teamsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Team</h4>
+                    <button type="button" class="close" id='teams_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="team_submission">
+                        <div class="form-group">
+                            <label>Team Name</label>
+                            <input type="text" class="form-control" id="team_name" placeholder="Type team name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 1</label>
+                            <input type="text" class="form-control" id="member_name1" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 2</label>
+                            <input type="text" class="form-control" id="member_name2" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 3</label>
+                            <input type="text" class="form-control" id="member_name3" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 4</label>
+                            <input type="text" class="form-control" id="member_name4" placeholder="Type member name here..." required>
+                        </div>
+                        <input type="hidden" class="form-control" id="team_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_team()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Tabs for tables -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -88,7 +128,7 @@
             <a class="nav-link" data-toggle="tab" href="#officers">Officers</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#teams">Comp. Teams</a>
+            <a class="nav-link" data-toggle="tab" href="#teams">Competitive Teams</a>
         </li>
     </ul>
 
@@ -176,7 +216,43 @@
         
         <!-- Competitive teams table -->
         <div id="teams" class="container tab-pane fade"><br>
-            <h3>Competitive Teams Table</h3>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Competitive Teams Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#teamsLoginForm" id='teams_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Member 1</th>
+                            <th>Member 2</th>
+                            <th>Member 3</th>
+                            <th>Member 4</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each teams}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td >{{this.dataValues.team_name}}</td>
+                            <td >{{this.dataValues.member_name1}}</td>
+                            <td>{{this.dataValues.member_name2}}</td>
+                            <td>{{this.dataValues.member_name3}}</td>
+                            <td>{{this.dataValues.member_name4}}</td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#teamsLoginForm" onclick="populate_team(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_team(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -273,6 +349,52 @@
         return false
     }
 
+    // Adding or modifying teams
+    function add_team() {
+        var team_name = document.getElementById("team_name").value
+        var member_name1 = document.getElementById("member_name1").value
+        var member_name2 = document.getElementById("member_name2").value
+        var member_name3 = document.getElementById("member_name3").value
+        var member_name4 = document.getElementById("member_name4").value
+        var id = document.getElementById("team_db_id").value
+        if (!team_name || !member_name1 || !member_name2 || !member_name3  || !member_name4) {
+            return
+        }
+        console.log("here")
+        if (!id) {
+            const data = {team_name, member_name1, member_name2, member_name3, member_name4};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/team_add', options);
+        }
+        else {
+            const data = {id, team_name, member_name1, member_name2, member_name3, member_name4};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/team_edit', options);
+        }
+        try {
+            document.getElementById("teams_x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+
+
+
+
     // Populating events form for updating
     function populate_event(element) {
         row = element.parentNode.parentNode
@@ -297,6 +419,18 @@
         document.getElementById("email").value = row.children[3].innerText
         document.getElementById("officer_db_id").value = row.id
     }
+
+    // Populating teams form for updating
+    function populate_team(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("team_name").value = row.children[0].innerText
+        document.getElementById("member_name1").value = row.children[1].innerText
+        document.getElementById("member_name2").value = row.children[2].innerText
+        document.getElementById("member_name3").value = row.children[3].innerText
+        document.getElementById("member_name4").value = row.children[4].innerText
+        document.getElementById("team_db_id").value = row.id
+    }
+
 
     // Deleting an event
     function delete_event(element) {
@@ -328,6 +462,23 @@
             body: JSON.stringify(data)
         };
         fetch('/admin/officer_delete', options);
+        location.reload()
+        return false
+    }
+
+    // Deleting a team
+    function delete_team(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/team_delete', options);
         location.reload()
         return false
     }

@@ -8,6 +8,8 @@ const { checkAuth, checkNotAuth, checkNotAdmin } = require("../authConfig.js");
 
 router.get('/', checkNotAdmin, (req,res) => {
   var events;
+  var officers;
+  var teams;
   db.events.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
     order: [['event_date', 'DESC']]
@@ -18,19 +20,32 @@ router.get('/', checkNotAdmin, (req,res) => {
       admin = req.user.role === 'admin';
       profile_pic = req.user.profile_pic;
     }
-    events = events_obj
+    events = events_obj;
   });
   db.officers.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
     order: [['name', 'ASC']]
-  }).then(officers => {
+  }).then(officers_obj => {
     admin = false;
     profile_pic = '';
     if (req.user) {
       admin = req.user.role === 'admin';
       profile_pic = req.user.profile_pic;
     }
-    res.render('admin', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, events: events, officers: officers });
+    officers = officers_obj;
+  });
+  db.teams.findAll({
+    attributes: {exclude: ['createdAt', 'updatedAt']}
+  })
+  .then(teams_obj => {
+    admin = false;
+    profile_pic = '';
+    if (req.user) {
+      admin = req.user.role === 'admin';
+      profile_pic = req.user.profile_pic;
+    }
+    teams = teams_obj;
+    res.render('admin', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, events: events, officers: officers, teams: teams });
   });
 });
 
@@ -81,6 +96,19 @@ router.post('/officer_add', checkNotAdmin, (req, res) => {
   });
 });
 
+router.post('/team_add', checkNotAdmin, (req, res) => {
+  db.teams.create({
+    team_name: req.body['team_name'], 
+    member_name1: req.body['member_name1'], 
+    member_name2: req.body['member_name2'], 
+    member_name3: req.body['member_name3'],
+    member_name4: req.body['member_name4']
+  })
+  .then( (result) => {
+      res.json(result) 
+  });
+});
+
 router.put('/officer_edit', checkNotAdmin, (req, res) => {
   db.officers.update({
     name: req.body['name'], 
@@ -95,8 +123,32 @@ router.put('/officer_edit', checkNotAdmin, (req, res) => {
   });
 });
 
+router.put('/team_edit', checkNotAdmin, (req, res) => {
+  db.teams.update({
+    team_name: req.body['team_name'], 
+    member_name1: req.body['member_name1'], 
+    member_name2: req.body['member_name2'], 
+    member_name3: req.body['member_name3'],
+    member_name4: req.body['member_name4']
+  }, {
+    where: {id: req.body['id']} 
+  })
+  .then( (result) => {
+      res.json(result) 
+  });
+});
+
 router.delete('/officer_delete', checkNotAdmin, (req, res) => {
   db.officers.destroy({
+    where: {id: req.body['id']} 
+  })
+  .then( (result) => {
+      res.json(result) 
+  });
+});
+
+router.delete('/team_delete', checkNotAdmin, (req, res) => {
+  db.teams.destroy({
     where: {id: req.body['id']} 
   })
   .then( (result) => {

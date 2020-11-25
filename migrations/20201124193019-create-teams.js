@@ -11,9 +11,6 @@ module.exports = {
       team_name: {
         type: Sequelize.STRING
       },
-      team_id: {
-        type: Sequelize.INTEGER
-      },
       member_name1: {
         type: Sequelize.STRING
       },
@@ -24,9 +21,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       member_name4: {
-        type: Sequelize.STRING
-      },
-      member_name5: {
         type: Sequelize.STRING
       },
       createdAt: {
