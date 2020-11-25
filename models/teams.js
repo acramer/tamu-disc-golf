@@ -15,12 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   teams.init({
     team_name: DataTypes.STRING,
-    team_id: DataTypes.INTEGER,
     member_name1: DataTypes.STRING,
     member_name2: DataTypes.STRING,
     member_name3: DataTypes.STRING,
-    member_name4: DataTypes.STRING,
-    member_name5: DataTypes.STRING
+    member_name4: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'teams',
