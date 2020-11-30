@@ -42,6 +42,7 @@ router.post('/', async (req,res) => {
         res.render('register',{errors});
     }else{
         let hashedPassword = await bcrypt.hash(password, 10);
+        profile_pic = "images/officers/officerplaceholder.png"
         pool.query(
             `select * from users
              where email = $1`,
@@ -56,9 +57,9 @@ router.post('/', async (req,res) => {
                     res.render('register',{errors});
                 }else{
                     pool.query(
-                        `insert into users (name, email, password)
-                         values ($1, $2, $3)`,
-                         [name,email,hashedPassword],
+                        `insert into users (name, email, password, profile_pic)
+                         values ($1, $2, $3, $4)`,
+                         [name,email,hashedPassword,profile_pic],
                          (err, results)=>{
                             if (err) {
                                 throw err;
