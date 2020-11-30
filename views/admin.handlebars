@@ -1,26 +1,486 @@
 <!DOCTYPE html>
+
 <div class="container">
+    <h1 class="mt-4 mb-3">Admin</h1>
 
-  <h1 class="mt-4 mb-3">Admin</h1>
+    <!-- Form for editing events -->
+    <div class="modal fade" id="eventsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Event</h4>
+                    <button type="button" class="close" id='events_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="event_submission">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="time" class="form-control" id="time" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Place</label>
+                            <input type="text" class="form-control" id="place" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" id="description" placeholder="Type something..." required>
+                        </div>
+                        <input type="hidden" class="form-control" id="event_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_event()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div>
-    <h2>Events</h2>
-  </div>
+    <!-- Form for editing officers -->
+    <div class="modal fade" id="officersLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Officer</h4>
+                    <button type="button" class="close" id='officers_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="officer_submission">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Position</label>
+                            <input type="text" class="form-control" id="position" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>About</label>
+                            <input type="text" class="form-control" id="about" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email to reach you at" required>
+                        </div>
+                        <input type="hidden" class="form-control" id="officer_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_officer()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div>
-    <h2>Officers</h2>
-    <p>
-        Query with user email to bring up user form
-        Modify Title and Role qualities
-        Roles must be of the form 'admin', 'officer' or 'member'
-    </p>
-  </div>
+      <!-- Form for editing teams -->
+    <div class="modal fade" id="teamsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Team</h4>
+                    <button type="button" class="close" id='teams_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="team_submission">
+                        <div class="form-group">
+                            <label>Team Name</label>
+                            <input type="text" class="form-control" id="team_name" placeholder="Type team name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 1</label>
+                            <input type="text" class="form-control" id="member_name1" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 2</label>
+                            <input type="text" class="form-control" id="member_name2" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 3</label>
+                            <input type="text" class="form-control" id="member_name3" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Member Name 4</label>
+                            <input type="text" class="form-control" id="member_name4" placeholder="Type member name here..." required>
+                        </div>
+                        <input type="hidden" class="form-control" id="team_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_team()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div>
-    <h2>Competetive Teams</h2>
-  </div>
+    <!-- Tabs for tables -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#events">Events</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#officers">Officers</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#teams">Competitive Teams</a>
+        </li>
+    </ul>
 
-  <div>
-    <h2>Gallary</h2>
-  </div>
+    <!-- Populating tables -->
+    <div class="tab-content">
+        <!-- Events table -->
+        <div id="events" class="container tab-pane active"><br>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Events Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#eventsLoginForm" id='event_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Place</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each events}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td>{{this.dataValues.event_title}}</td>
+                            <td>{{moment this.dataValues.event_date format="YYYY-MM-DD"}}</td>
+                            <td>{{moment this.dataValues.event_date format="hh:mm A"}}</td>
+                            <td>{{this.dataValues.event_place}}</td>
+                            <td>{{this.dataValues.event_description}}</td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#eventsLoginForm" onclick="populate_event(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_event(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Officers table -->
+        <div id="officers" class="container tab-pane fade"><br>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Officers Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#officersLoginForm" id='officer_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>About</th>
+                            <th>Email Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each officers}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td>{{this.dataValues.name}}</td>
+                            <td>{{this.dataValues.position}}</td>
+                            <td>{{this.dataValues.about}}</td>
+                            <td>{{this.dataValues.email}}</td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#officersLoginForm" onclick="populate_officer(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_officer(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Competitive teams table -->
+        <div id="teams" class="container tab-pane fade"><br>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Competitive Teams Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#teamsLoginForm" id='teams_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Member 1</th>
+                            <th>Member 2</th>
+                            <th>Member 3</th>
+                            <th>Member 4</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each teams}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td >{{this.dataValues.team_name}}</td>
+                            <td >{{this.dataValues.member_name1}}</td>
+                            <td>{{this.dataValues.member_name2}}</td>
+                            <td>{{this.dataValues.member_name3}}</td>
+                            <td>{{this.dataValues.member_name4}}</td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#teamsLoginForm" onclick="populate_team(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_team(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.getElementById('event_submission').onsubmit= function(e){
+    e.preventDefault();
+    }
+</script>
+
+<script>
+    // Adding or modifying events
+    function add_event() {
+        var title = document.getElementById("title").value
+        var date = document.getElementById("date").value
+        var time = document.getElementById("time").value
+        var place = document.getElementById("place").value
+        var description = document.getElementById("description").value
+        var id = document.getElementById("event_db_id").value
+        if (!title || !date || !time || !place || !description) {
+            return
+        }
+        var date_time = date + " " + time
+        if (!id) {
+            const data = {title, date_time, place, description};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/event_add', options);
+        }
+        else {
+            const data = {id, title, date_time, place, description};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/event_edit', options);
+        }
+        try {
+            document.getElementById("events_x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+
+    // Adding or modifying officers
+    function add_officer() {
+        var name = document.getElementById("name").value
+        var position = document.getElementById("position").value
+        var email = document.getElementById("email").value
+        var about = document.getElementById("about").value
+        var id = document.getElementById("officer_db_id").value
+        if (!name || !position || !email || !about) {
+            return
+        }
+        console.log("here")
+        if (!id) {
+            const data = {name, position, email, about};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/officer_add', options);
+        }
+        else {
+            const data = {id, name, position, email, about};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/officer_edit', options);
+        }
+        try {
+            document.getElementById("officers_x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+
+    // Adding or modifying teams
+    function add_team() {
+        var team_name = document.getElementById("team_name").value
+        var member_name1 = document.getElementById("member_name1").value
+        var member_name2 = document.getElementById("member_name2").value
+        var member_name3 = document.getElementById("member_name3").value
+        var member_name4 = document.getElementById("member_name4").value
+        var id = document.getElementById("team_db_id").value
+        if (!team_name || !member_name1 || !member_name2 || !member_name3  || !member_name4) {
+            return
+        }
+        console.log("here")
+        if (!id) {
+            const data = {team_name, member_name1, member_name2, member_name3, member_name4};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/team_add', options);
+        }
+        else {
+            const data = {id, team_name, member_name1, member_name2, member_name3, member_name4};
+            const options = {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            fetch('/admin/team_edit', options);
+        }
+        try {
+            document.getElementById("teams_x").click()
+        } catch (err) {
+
+        }
+        location.reload()
+        return false
+    }
+
+
+
+
+    // Populating events form for updating
+    function populate_event(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("title").value = row.children[0].innerText
+        document.getElementById("date").value = row.children[1].innerText
+        time_formatting = new Date(row.children[1].innerText + " " + row.children[2].innerText).toISOString()
+        time_formatting = new Date(time_formatting)
+        minutes = time_formatting.getMinutes()
+        hours = time_formatting.getHours()
+        document.getElementById("time").value = hours + ':' + (minutes == '0'? '00' : minutes)
+        document.getElementById("place").value = row.children[3].innerText
+        document.getElementById("description").value = row.children[4].innerText
+        document.getElementById("event_db_id").value = row.id
+    }
+
+    // Populating officers form for updating
+    function populate_officer(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("name").value = row.children[0].innerText
+        document.getElementById("position").value = row.children[1].innerText
+        document.getElementById("about").value = row.children[2].innerText
+        document.getElementById("email").value = row.children[3].innerText
+        document.getElementById("officer_db_id").value = row.id
+    }
+
+    // Populating teams form for updating
+    function populate_team(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("team_name").value = row.children[0].innerText
+        document.getElementById("member_name1").value = row.children[1].innerText
+        document.getElementById("member_name2").value = row.children[2].innerText
+        document.getElementById("member_name3").value = row.children[3].innerText
+        document.getElementById("member_name4").value = row.children[4].innerText
+        document.getElementById("team_db_id").value = row.id
+    }
+
+
+    // Deleting an event
+    function delete_event(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/event_delete', options);
+        location.reload()
+        return false
+    }
+
+    // Deleting an officer
+    function delete_officer(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/officer_delete', options);
+        location.reload()
+        return false
+    }
+
+    // Deleting a team
+    function delete_team(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/team_delete', options);
+        location.reload()
+        return false
+    }
+
+</script>
