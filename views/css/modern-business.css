@@ -194,3 +194,7 @@ a.custom-card:hover {
   text-decoration: none;
 
 }
+
+.background-card {
+  background: rgba(145, 59, 59, 0.486);
+}
