@@ -15,7 +15,7 @@
         {{#each courses}}
         <a href="https://www.google.com/maps/place/?q=place_id:{{this.dataValues.place_id}}" class="custom-card">
           <div class="card mt-2 ml-2 mr-2" style="border: 3px solid #e5e5e5;">
-            <div class="card-content">
+            <div class="card-content" id="{{this.dataValues.id}}">
               <div class="card-body">
                 <div class="media d-flex" style="margin-top: -10px; margin-bottom: -30px;">
                   <div class="media-body text-left">
@@ -64,28 +64,55 @@
       subdomains: ['a','b','c'],
     }).addTo(map);
 
+    var myURL = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/"
+    
+    var defaultIcon = L.icon({
+      iconUrl: myURL + 'marker-icon-blue.png',
+      iconRetinaUrl: myURL + 'marker-icon-2x-blue.png',
+      shadowURL: myURL + 'marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+      tooltipAnchor: [16, -28]
+    });
 
-    var myURL = "https://unpkg.com/leaflet@1.3.1/dist/"
-    var myIcon = L.icon({
-        iconUrl: myURL + 'images/marker-icon.png',
-        iconRetinaUrl: myURL + 'images/marker-icon.png',
-        iconSize: [19, 14],
-        iconAnchor: [9, 21],
-        popupAnchor: [0, -14]
+    var zoomIcon = L.icon({
+      iconUrl: myURL + 'marker-icon-green.png',
+      iconRetinaUrl: myURL + 'marker-icon-2x-green.png',
+      shadowURL: myURL + 'marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+      tooltipAnchor: [16, -28]
     });
 
     {{#each courses}}
-      console.log(parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}"), {icon: myIcon});
-      marker = L.marker([parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}")], riseOnHover=true).addTo(map);
-
-      marker.bindPopup("{{this.dataValues.name}}")
+      marker = L.marker([parseFloat("{{this.dataValues.lat}}"), parseFloat("{{this.dataValues.long}}")], {icon: defaultIcon, 
+                        id: "{{this.dataValues.id}}", win_url: "https://www.google.com/maps/place/?q=place_id:" + "{{this.dataValues.place_id}}"}, 
+                        riseOnHover=true).addTo(map);
+      marker.bindPopup("{{this.dataValues.name}}");
+      
       marker.on('mouseover', function (e) {
-          this.openPopup();
-      });
-      marker.on('mouseout', function (e) {
-          this.closePopup();
+        e.target.openPopup();
+        e.target.setIcon(zoomIcon);
+        var element = document.getElementById(this.options.id);
+        element.className = "card-content background-card";
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
       });
 
+      marker.on('mouseout', function (e) {
+        e.target.closePopup();
+        e.target.setIcon(defaultIcon);
+        var element = document.getElementById(this.options.id);
+        element.className = "card-content";
+        document.getElementById("scroll").scrollTop = 0;
+      });
+
+      marker.on('click', function (e) {
+        window.open(this.options.win_url);
+      });
 
     {{/each}}
 
