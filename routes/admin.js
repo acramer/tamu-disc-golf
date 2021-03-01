@@ -6,11 +6,11 @@ const db = require('../models/index.js');
 
 const { checkAuth, checkNotAuth, checkNotAdmin } = require("../authConfig.js");
 
-router.get('/', checkNotAdmin, (req,res) => {
+router.get('/', checkNotAdmin, async (req,res) => {
   var events;
   var officers;
   var teams;
-  db.events.findAll({
+  await db.events.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
     order: [['event_date', 'DESC']]
   }).then(events_obj => {
@@ -22,7 +22,7 @@ router.get('/', checkNotAdmin, (req,res) => {
     }
     events = events_obj;
   });
-  db.officers.findAll({
+  await db.officers.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
     order: [['name', 'ASC']]
   }).then(officers_obj => {
@@ -34,7 +34,7 @@ router.get('/', checkNotAdmin, (req,res) => {
     }
     officers = officers_obj;
   });
-  db.teams.findAll({
+  await db.teams.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']}
   })
   .then(teams_obj => {
