@@ -6,6 +6,38 @@ const db = require('../models/index.js');
 
 const { checkAuth, checkNotAuth, checkNotAdmin } = require("../authConfig.js");
 
+const multer = require("multer");
+
+const events_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "views/images/events/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+})
+const events_upload = multer({ storage: events_storage });
+
+const officers_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "views/images/officers/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+})
+const officers_upload = multer({ storage: officers_storage });
+
+const teams_storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "views/images/teams/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+})
+const teams_upload = multer({ storage: teams_storage });
+
 router.get('/', checkNotAdmin, async (req,res) => {
   var events;
   var officers;
@@ -49,24 +81,26 @@ router.get('/', checkNotAdmin, async (req,res) => {
   });
 });
 
-router.post('/event_add', checkNotAdmin, (req, res) => {
-  db.events.create({
+router.post('/event_add', checkNotAdmin, events_upload.single('file'), async (req, res) => {
+  await db.events.create({
     event_title: req.body['title'], 
     event_date: req.body['date_time'], 
     event_place: req.body['place'], 
-    event_description: req.body['description']
+    event_description: req.body['description'],
+    image_path: "images/events/" + req.file.originalname
   })
   .then( (result) => {
-      res.json(result) 
+    res.json(result);
   });
 });
 
-router.put('/event_edit', checkNotAdmin, (req, res) => {
-  db.events.update({
+router.put('/event_edit', checkNotAdmin, events_upload.single('file'), async (req, res) => {
+  await db.events.update({
     event_title: req.body['title'], 
     event_date: req.body['date_time'], 
     event_place: req.body['place'], 
-    event_description: req.body['description']
+    event_description: req.body['description'],
+    image_path: "images/events/" + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -75,8 +109,8 @@ router.put('/event_edit', checkNotAdmin, (req, res) => {
   });
 });
 
-router.delete('/event_delete', checkNotAdmin, (req, res) => {
-  db.events.destroy({
+router.delete('/event_delete', checkNotAdmin, async (req, res) => {
+  await db.events.destroy({
     where: {id: req.body['id']} 
   })
   .then( (result) => {
@@ -84,37 +118,40 @@ router.delete('/event_delete', checkNotAdmin, (req, res) => {
   });
 });
 
-router.post('/officer_add', checkNotAdmin, (req, res) => {
-  db.officers.create({
+router.post('/officer_add', checkNotAdmin, officers_upload.single('file'), async (req, res) => {
+  await db.officers.create({
     name: req.body['name'], 
     about: req.body['about'], 
     email: req.body['email'], 
-    position: req.body['position']
+    position: req.body['position'],
+    image_path: "images/officers/" + req.file.originalname
   })
   .then( (result) => {
       res.json(result) 
   });
 });
 
-router.post('/team_add', checkNotAdmin, (req, res) => {
-  db.teams.create({
+router.post('/team_add', checkNotAdmin, teams_upload.single('file'), async (req, res) => {
+  await db.teams.create({
     team_name: req.body['team_name'], 
     member_name1: req.body['member_name1'], 
     member_name2: req.body['member_name2'], 
     member_name3: req.body['member_name3'],
-    member_name4: req.body['member_name4']
+    member_name4: req.body['member_name4'],
+    image_path: "images/teams/" + req.file.originalname
   })
   .then( (result) => {
       res.json(result) 
   });
 });
 
-router.put('/officer_edit', checkNotAdmin, (req, res) => {
-  db.officers.update({
+router.put('/officer_edit', checkNotAdmin, officers_upload.single('file'), async (req, res) => {
+  await db.officers.update({
     name: req.body['name'], 
     about: req.body['about'], 
     email: req.body['email'], 
-    position: req.body['position']
+    position: req.body['position'],
+    image_path: "images/officers/" + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -123,13 +160,14 @@ router.put('/officer_edit', checkNotAdmin, (req, res) => {
   });
 });
 
-router.put('/team_edit', checkNotAdmin, (req, res) => {
-  db.teams.update({
+router.put('/team_edit', checkNotAdmin, teams_upload.single('file'), async (req, res) => {
+  await db.teams.update({
     team_name: req.body['team_name'], 
     member_name1: req.body['member_name1'], 
     member_name2: req.body['member_name2'], 
     member_name3: req.body['member_name3'],
-    member_name4: req.body['member_name4']
+    member_name4: req.body['member_name4'],
+    image_path: "images/teams/" + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -138,8 +176,8 @@ router.put('/team_edit', checkNotAdmin, (req, res) => {
   });
 });
 
-router.delete('/officer_delete', checkNotAdmin, (req, res) => {
-  db.officers.destroy({
+router.delete('/officer_delete', checkNotAdmin, async (req, res) => {
+  await db.officers.destroy({
     where: {id: req.body['id']} 
   })
   .then( (result) => {
@@ -147,8 +185,8 @@ router.delete('/officer_delete', checkNotAdmin, (req, res) => {
   });
 });
 
-router.delete('/team_delete', checkNotAdmin, (req, res) => {
-  db.teams.destroy({
+router.delete('/team_delete', checkNotAdmin, async (req, res) => {
+  await db.teams.destroy({
     where: {id: req.body['id']} 
   })
   .then( (result) => {

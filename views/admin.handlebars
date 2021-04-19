@@ -14,7 +14,7 @@
                     </button>
                 </div>
                 <div class="modal-body mx-3 font-weight-bold">
-                    <form id="event_submission">
+                    <form id="event_submission" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Title</label>
                             <input type="text" class="form-control" id="title" placeholder="Type something..." required>
@@ -35,6 +35,10 @@
                             <label>Description</label>
                             <input type="text" class="form-control" id="description" placeholder="Type something..." required>
                         </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" class="form-control" id="event_image" placeholder="Attach an image" required>
+                        </div>
                         <input type="hidden" class="form-control" id="event_db_id">
                         <button class="btn btn-primary" type="submit" onclick="add_event()" id="submit_button">Post your record</button>
                     </form>
@@ -54,7 +58,7 @@
                     </button>
                 </div>
                 <div class="modal-body mx-3 font-weight-bold">
-                    <form id="officer_submission">
+                    <form id="officer_submission" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Type something..." required>
@@ -70,6 +74,10 @@
                         <div class="form-group">
                             <label>Email address</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter email to reach you at" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" class="form-control" id="officers_image" placeholder="Attach an image" required>
                         </div>
                         <input type="hidden" class="form-control" id="officer_db_id">
                         <button class="btn btn-primary" type="submit" onclick="add_officer()" id="submit_button">Post your record</button>
@@ -90,7 +98,7 @@
                     </button>
                 </div>
                 <div class="modal-body mx-3 font-weight-bold">
-                    <form id="team_submission">
+                    <form id="team_submission" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Team Name</label>
                             <input type="text" class="form-control" id="team_name" placeholder="Type team name here..." required>
@@ -110,6 +118,10 @@
                         <div class="form-group">
                             <label>Member Name 4</label>
                             <input type="text" class="form-control" id="member_name4" placeholder="Type member name here..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" class="form-control" id="teams_image" placeholder="Attach an image" required>
                         </div>
                         <input type="hidden" class="form-control" id="team_db_id">
                         <button class="btn btn-primary" type="submit" onclick="add_team()" id="submit_button">Post your record</button>
@@ -153,6 +165,7 @@
                             <th>Time</th>
                             <th>Place</th>
                             <th>Description</th>
+                            <th>Image</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -164,6 +177,7 @@
                             <td>{{moment this.dataValues.event_date format="hh:mm A"}}</td>
                             <td>{{this.dataValues.event_place}}</td>
                             <td>{{this.dataValues.event_description}}</td>
+                            <td style="text-align: center; vertical-align: middle;"><img src = "{{this.dataValues.image_path}}" class="thumbnail"></td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="modal" data-target="#eventsLoginForm" onclick="populate_event(this)"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete_icon" title="Delete" onclick="delete_event(this)"><i class="material-icons">&#xE872;</i></a>
@@ -193,6 +207,7 @@
                             <th>Position</th>
                             <th>About</th>
                             <th>Email Address</th>
+                            <th>Image</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -203,6 +218,7 @@
                             <td>{{this.dataValues.position}}</td>
                             <td>{{this.dataValues.about}}</td>
                             <td>{{this.dataValues.email}}</td>
+                            <td style="text-align: center; vertical-align: middle;"><img src = "{{this.dataValues.image_path}}" class="thumbnail"></td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="modal" data-target="#officersLoginForm" onclick="populate_officer(this)"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete_icon" title="Delete" onclick="delete_officer(this)"><i class="material-icons">&#xE872;</i></a>
@@ -233,6 +249,7 @@
                             <th>Member 2</th>
                             <th>Member 3</th>
                             <th>Member 4</th>
+                            <th>Image</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -244,6 +261,7 @@
                             <td>{{this.dataValues.member_name2}}</td>
                             <td>{{this.dataValues.member_name3}}</td>
                             <td>{{this.dataValues.member_name4}}</td>
+                            <td style="text-align: center; vertical-align: middle;"><img src = "{{this.dataValues.image_path}}" class="thumbnail"></td>
                             <td>
                                 <a class="edit" title="Edit" data-toggle="modal" data-target="#teamsLoginForm" onclick="populate_team(this)"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete_icon" title="Delete" onclick="delete_team(this)"><i class="material-icons">&#xE872;</i></a>
@@ -272,29 +290,35 @@
         var place = document.getElementById("place").value
         var description = document.getElementById("description").value
         var id = document.getElementById("event_db_id").value
-        if (!title || !date || !time || !place || !description) {
+        var my_file = document.getElementById("event_image").files[0]
+        if (!title || !date || !time || !place || !description || !my_file) {
             return
         }
         var date_time = date + " " + time
         if (!id) {
-            const data = {title, date_time, place, description};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("title", title);
+            data.append("date_time", date_time);
+            data.append("place", place);
+            data.append("description", description);
             const options = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/event_add', options);
         }
         else {
-            const data = {id, title, date_time, place, description};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("id", id);
+            data.append("title", title);
+            data.append("date_time", date_time);
+            data.append("place", place);
+            data.append("description", description);
             const options = {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/event_edit', options);
         }
@@ -314,29 +338,34 @@
         var email = document.getElementById("email").value
         var about = document.getElementById("about").value
         var id = document.getElementById("officer_db_id").value
-        if (!name || !position || !email || !about) {
+        var my_file = document.getElementById("officers_image").files[0]
+        if (!name || !position || !email || !about || !my_file) {
             return
         }
-        console.log("here")
         if (!id) {
-            const data = {name, position, email, about};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("name", name);
+            data.append("position", position);
+            data.append("email", email);
+            data.append("about", about);
             const options = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/officer_add', options);
         }
         else {
-            const data = {id, name, position, email, about};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("id", id);
+            data.append("name", name);
+            data.append("position", position);
+            data.append("email", email);
+            data.append("about", about);
             const options = {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/officer_edit', options);
         }
@@ -357,29 +386,36 @@
         var member_name3 = document.getElementById("member_name3").value
         var member_name4 = document.getElementById("member_name4").value
         var id = document.getElementById("team_db_id").value
-        if (!team_name || !member_name1 || !member_name2 || !member_name3  || !member_name4) {
+        var my_file = document.getElementById("teams_image").files[0]
+        if (!team_name || !member_name1 || !member_name2 || !member_name3  || !member_name4 || !my_file) {
             return
         }
-        console.log("here")
         if (!id) {
-            const data = {team_name, member_name1, member_name2, member_name3, member_name4};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("team_name", team_name);
+            data.append("member_name1", member_name1);
+            data.append("member_name2", member_name2);
+            data.append("member_name3", member_name3);
+            data.append("member_name4", member_name4);
             const options = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/team_add', options);
         }
         else {
-            const data = {id, team_name, member_name1, member_name2, member_name3, member_name4};
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("id", id);
+            data.append("team_name", team_name);
+            data.append("member_name1", member_name1);
+            data.append("member_name2", member_name2);
+            data.append("member_name3", member_name3);
+            data.append("member_name4", member_name4);
             const options = {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                body: data
             };
             fetch('/admin/team_edit', options);
         }
