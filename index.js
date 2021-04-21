@@ -11,10 +11,6 @@ var session = require('express-session');
 var flash = require('express-flash');
 var passport = require("passport");
 
-// var fileupload = require('express-fileupload');
-// var bodyParser = require('body-parser');
-// var cors = require('cors');
-
 // import { Loader } from "@googlemaps/js-api-loader"
 
 const app = module.exports = express();
@@ -55,15 +51,6 @@ app.use('/vendor', express.static(path.join(__dirname, 'views/vendor')));
 app.use('/images', express.static(path.join(__dirname, 'views/images')));
 app.use('/prod-images', express.static(path.join(__dirname, 'views/prod-images')));
 app.use(require('./routes/index.js'));
-
-// app.use(fileupload({
-//   createParentPath: true
-// }));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
-// app.use(cors());
-
-
 
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/profile",

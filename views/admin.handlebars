@@ -547,11 +547,10 @@
         row = element.parentNode.parentNode
         document.getElementById("title").value = row.children[0].innerText
         document.getElementById("date").value = row.children[1].innerText
-        time_formatting = new Date(row.children[1].innerText + " " + row.children[2].innerText).toISOString()
-        time_formatting = new Date(time_formatting)
+        time_formatting = new Date(row.children[1].innerText + " " + row.children[2].innerText)
         minutes = time_formatting.getMinutes()
         hours = time_formatting.getHours()
-        document.getElementById("time").value = hours + ':' + (minutes == '0'? '00' : minutes)
+        document.getElementById("time").value = hours + ':' + (minutes < 10 ? '0' + minutes : minutes)
         document.getElementById("place").value = row.children[3].innerText
         document.getElementById("description").value = row.children[4].innerText
         document.getElementById("event_db_id").value = row.id
