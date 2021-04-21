@@ -18,7 +18,7 @@ module.exports = {
             email: 'test@test.edu',
             phone: '123-456-7890',
             user_id: null,
-            image_path: 'images/lostfound/lostfound.jpg'
+            image_path: 'prod-images/lostfound/lostfound.jpg'
         },
         {
             details: 'Very few details', 
@@ -26,7 +26,7 @@ module.exports = {
             email: 'test@test.edu',
             phone: '123-456-7890',
             user_id: null,
-            image_path: 'images/lostfound/lostfound.jpg'
+            image_path: 'prod-images/lostfound/lostfound.jpg'
         },
         {
             details: 'Hi', 
@@ -34,7 +34,7 @@ module.exports = {
             email: 'tamu@tamu.edu',
             phone: '123-456-7890',
             user_id: null,
-            image_path: 'images/lostfound/lostfound.jpg'
+            image_path: 'prod-images/lostfound/lostfound.jpg'
         }
 ], {});
   },

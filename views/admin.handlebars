@@ -87,7 +87,7 @@
         </div>
     </div>
 
-      <!-- Form for editing teams -->
+    <!-- Form for editing teams -->
     <div class="modal fade" id="teamsLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -131,6 +131,38 @@
         </div>
     </div>
 
+    <!-- Form for editing gallery images -->
+    <div class="modal fade" id="galleryLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Add New Image</h4>
+                    <button type="button" class="close" id='gallery_x' data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 font-weight-bold">
+                    <form id="gallery_submission" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" id="gallery_title" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input type="text" class="form-control" id="gallery_description" placeholder="Type something..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" class="form-control" id="gallery_image" placeholder="Attach an image" required>
+                        </div>
+                        <input type="hidden" class="form-control" id="gallery_db_id">
+                        <button class="btn btn-primary" type="submit" onclick="add_gallery()" id="submit_button">Post your record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Tabs for tables -->
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -141,6 +173,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#teams">Competitive Teams</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#gallery">Gallery</a>
         </li>
     </ul>
 
@@ -265,6 +300,43 @@
                             <td>
                                 <a class="edit" title="Edit" data-toggle="modal" data-target="#teamsLoginForm" onclick="populate_team(this)"><i class="material-icons">&#xE254;</i></a>
                                 <a class="delete_icon" title="Delete" onclick="delete_team(this)"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Gallery table -->
+        <div id="gallery" class="container tab-pane fade"><br>
+            <div class="table-responsive">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Gallery Images Table</h2></div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary btn-rounded mb-4 add-new" data-toggle="modal" data-target="#galleryLoginForm" id='gallery_submit'>Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each items}}
+                        <tr id="{{this.dataValues.id}}">
+                            <td >{{this.dataValues.title}}</td>
+                            <td >{{this.dataValues.description}}</td>
+                            <td style="text-align: center; vertical-align: middle;"><img src = "{{this.dataValues.image_path}}" class="thumbnail"></td>
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="modal" data-target="#galleryLoginForm" onclick="populate_gallery(this)"><i class="material-icons">&#xE254;</i></a>
+                                <a class="delete_icon" title="Delete" onclick="delete_gallery(this)"><i class="material-icons">&#xE872;</i></a>
                             </td>
                         </tr>
                         {{/each}}
@@ -428,7 +500,46 @@
         return false
     }
 
+    // Adding or modifying gallery items
+    function add_gallery() {
+        var title = document.getElementById("gallery_title").value
+        var description = document.getElementById("gallery_description").value
+        var id = document.getElementById("gallery_db_id").value
+        var my_file = document.getElementById("gallery_image").files[0]
+        if (!title || !description || !my_file) {
+            return
+        }
+        if (!id) {
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("title", title);
+            data.append("description", description);
+            const options = {
+                method: 'POST',
+                body: data
+            };
+            fetch('/admin/gallery_add', options);
+        }
+        else {
+            var data = new FormData();
+            data.append("file", my_file);
+            data.append("id", id);
+            data.append("title", title);
+            data.append("description", description);
+            const options = {
+                method: 'PUT',
+                body: data
+            };
+            fetch('/admin/gallery_edit', options);
+        }
+        try {
+            document.getElementById("gallery_x").click()
+        } catch (err) {
 
+        }
+        location.reload()
+        return false
+    }
 
 
     // Populating events form for updating
@@ -465,6 +576,14 @@
         document.getElementById("member_name3").value = row.children[3].innerText
         document.getElementById("member_name4").value = row.children[4].innerText
         document.getElementById("team_db_id").value = row.id
+    }
+
+    // Populating gallery form for updating
+    function populate_gallery(element) {
+        row = element.parentNode.parentNode
+        document.getElementById("gallery_title").value = row.children[0].innerText
+        document.getElementById("gallery_description").value = row.children[1].innerText
+        document.getElementById("gallery_db_id").value = row.id
     }
 
 
@@ -515,6 +634,23 @@
             body: JSON.stringify(data)
         };
         fetch('/admin/team_delete', options);
+        location.reload()
+        return false
+    }
+
+    // Deleting a gallery item
+    function delete_gallery(element) {
+        row = element.parentNode.parentNode
+        id = row.id
+        const data = {id};
+        const options = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        fetch('/admin/gallery_delete', options);
         location.reload()
         return false
     }

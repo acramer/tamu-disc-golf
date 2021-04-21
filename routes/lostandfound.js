@@ -8,7 +8,7 @@ const multer = require("multer");
 
 const lostfound_storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "views/images/lostfound/");
+    cb(null, "views/prod-images/lostfound/");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -17,7 +17,6 @@ const lostfound_storage = multer.diskStorage({
 const lostfound_upload = multer({ storage: lostfound_storage });
 
 router.get( '/', async (req, res) => {
-  //res.render(path.resolve('views/lostfound'));
   await db.lost_and_founds.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']},
   })
@@ -30,7 +29,6 @@ router.get( '/', async (req, res) => {
     }
     res.render('lostfound', { auth: req.isAuthenticated(), admin: admin, profile_pic: profile_pic, lost_and_found: lost_and_found });
   });
-//   res.render('lostfound');
 });
 
 router.post('/add', lostfound_upload.single('file'), async (req, res) => {
@@ -40,7 +38,7 @@ router.post('/add', lostfound_upload.single('file'), async (req, res) => {
       email: req.body['email'], 
       phone: req.body['number'],
       user_id: req.body['user_id'],
-      image_path: "images/lostfound/" + req.file.originalname
+      image_path: "prod-images/lostfound/" + req.file.originalname
     })
     .then( (result) => {
         res.json(result) 
