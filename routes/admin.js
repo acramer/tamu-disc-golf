@@ -102,7 +102,6 @@ router.get('/', checkNotAdmin, async (req,res) => {
 });
 
 router.post('/event_add', checkNotAdmin, events_upload.single('file'), async (req, res) => {
-  console.log(req.body['date_time'])
   await db.events.create({
     event_title: req.body['title'], 
     event_date: req.body['date_time'], 

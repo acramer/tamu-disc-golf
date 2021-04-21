@@ -355,7 +355,7 @@
 
 <script>
     // Adding or modifying events
-    function add_event() {
+    async function add_event() {
         var title = document.getElementById("title").value
         var date = document.getElementById("date").value
         var time = document.getElementById("time").value
@@ -378,7 +378,7 @@
                 method: 'POST',
                 body: data
             };
-            fetch('/admin/event_add', options);
+            await fetch('/admin/event_add', options);
         }
         else {
             var data = new FormData();
@@ -392,19 +392,19 @@
                 method: 'PUT',
                 body: data
             };
-            fetch('/admin/event_edit', options);
+            await fetch('/admin/event_edit', options);
         }
         try {
             document.getElementById("events_x").click()
         } catch (err) {
 
         }
-        location.reload()
+        await location.reload()
         return false
     }
 
     // Adding or modifying officers
-    function add_officer() {
+    async function add_officer() {
         var name = document.getElementById("name").value
         var position = document.getElementById("position").value
         var email = document.getElementById("email").value
@@ -425,7 +425,7 @@
                 method: 'POST',
                 body: data
             };
-            fetch('/admin/officer_add', options);
+            await fetch('/admin/officer_add', options);
         }
         else {
             var data = new FormData();
@@ -439,19 +439,19 @@
                 method: 'PUT',
                 body: data
             };
-            fetch('/admin/officer_edit', options);
+            await fetch('/admin/officer_edit', options);
         }
         try {
             document.getElementById("officers_x").click()
         } catch (err) {
 
         }
-        location.reload()
+        await location.reload()
         return false
     }
 
     // Adding or modifying teams
-    function add_team() {
+    async function add_team() {
         var team_name = document.getElementById("team_name").value
         var member_name1 = document.getElementById("member_name1").value
         var member_name2 = document.getElementById("member_name2").value
@@ -474,7 +474,7 @@
                 method: 'POST',
                 body: data
             };
-            fetch('/admin/team_add', options);
+            await fetch('/admin/team_add', options);
         }
         else {
             var data = new FormData();
@@ -489,19 +489,19 @@
                 method: 'PUT',
                 body: data
             };
-            fetch('/admin/team_edit', options);
+            await fetch('/admin/team_edit', options);
         }
         try {
             document.getElementById("teams_x").click()
         } catch (err) {
 
         }
-        location.reload()
+        await location.reload()
         return false
     }
 
     // Adding or modifying gallery items
-    function add_gallery() {
+    async function add_gallery() {
         var title = document.getElementById("gallery_title").value
         var description = document.getElementById("gallery_description").value
         var id = document.getElementById("gallery_db_id").value
@@ -518,7 +518,7 @@
                 method: 'POST',
                 body: data
             };
-            fetch('/admin/gallery_add', options);
+            await fetch('/admin/gallery_add', options);
         }
         else {
             var data = new FormData();
@@ -530,14 +530,14 @@
                 method: 'PUT',
                 body: data
             };
-            fetch('/admin/gallery_edit', options);
+            await fetch('/admin/gallery_edit', options);
         }
         try {
             document.getElementById("gallery_x").click()
         } catch (err) {
 
         }
-        location.reload()
+        await location.reload()
         return false
     }
 
@@ -587,7 +587,7 @@
 
 
     // Deleting an event
-    function delete_event(element) {
+    async function delete_event(element) {
         row = element.parentNode.parentNode
         id = row.id
         const data = {id};
@@ -598,13 +598,13 @@
             },
             body: JSON.stringify(data)
         };
-        fetch('/admin/event_delete', options);
-        location.reload()
+        await fetch('/admin/event_delete', options);
+        await location.reload()
         return false
     }
 
     // Deleting an officer
-    function delete_officer(element) {
+    async function delete_officer(element) {
         row = element.parentNode.parentNode
         id = row.id
         const data = {id};
@@ -615,13 +615,13 @@
             },
             body: JSON.stringify(data)
         };
-        fetch('/admin/officer_delete', options);
-        location.reload()
+        await fetch('/admin/officer_delete', options);
+        await location.reload()
         return false
     }
 
     // Deleting a team
-    function delete_team(element) {
+    async function delete_team(element) {
         row = element.parentNode.parentNode
         id = row.id
         const data = {id};
@@ -632,13 +632,13 @@
             },
             body: JSON.stringify(data)
         };
-        fetch('/admin/team_delete', options);
-        location.reload()
+        await fetch('/admin/team_delete', options);
+        await location.reload()
         return false
     }
 
     // Deleting a gallery item
-    function delete_gallery(element) {
+    async function delete_gallery(element) {
         row = element.parentNode.parentNode
         id = row.id
         const data = {id};
@@ -649,8 +649,8 @@
             },
             body: JSON.stringify(data)
         };
-        fetch('/admin/gallery_delete', options);
-        location.reload()
+        await fetch('/admin/gallery_delete', options);
+        await location.reload()
         return false
     }
 
