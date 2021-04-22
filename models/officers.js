@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     about: DataTypes.STRING,
-    position: DataTypes.STRING
+    position: DataTypes.STRING,
+    image_path: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'officers',
