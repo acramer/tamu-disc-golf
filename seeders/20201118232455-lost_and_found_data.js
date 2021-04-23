@@ -17,24 +17,21 @@ module.exports = {
             title: 'Example Title',
             email: 'test@test.edu',
             phone: '123-456-7890',
-            user_id: null,
-            image_path: 'prod-images/lostfound/lostfound.jpg'
+            user_id: null
         },
         {
             details: 'Very few details', 
             title: 'Title Title Title',
             email: 'test@test.edu',
             phone: '123-456-7890',
-            user_id: null,
-            image_path: 'prod-images/lostfound/lostfound.jpg'
+            user_id: null
         },
         {
             details: 'Hi', 
             title: 'Title123123123123123',
             email: 'tamu@tamu.edu',
             phone: '123-456-7890',
-            user_id: null,
-            image_path: 'prod-images/lostfound/lostfound.jpg'
+            user_id: null
         }
 ], {});
   },

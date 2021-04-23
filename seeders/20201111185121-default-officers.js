@@ -15,38 +15,32 @@ module.exports = {
       { 'name': 'Ben Mueck',
         'email': 'bmueck@tamu.edu',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'President',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'President'
       },
       { 'name': 'Sam Mueck',
         'email': 'abc@abc.com',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'Treasurer',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'Treasurer'
       },
       { 'name': 'Michael T Taylor',
         'email': 'abc@abc.com',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'Team Captain',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'Team Captain'
       },
       { 'name': 'Scottie Taylor',
         'email': 'abc@abc.com',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'General Officer 1',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'General Officer 1'
       },
       { 'name': 'Parker Primm',
         'email': 'abc@abc.com',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'General Officer 2',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'General Officer 2'
       },
       { 'name': 'Joker',
         'email': 'abc@abc.com',
         'about': 'Madness is like gravity, all it needs is a little push',
-        'position': 'placeholder',
-        'image_path': 'prod-images/officers/officerplaceholder.png'
+        'position': 'placeholder'
       },
     ], {})
   },

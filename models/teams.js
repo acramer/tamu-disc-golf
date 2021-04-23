@@ -18,8 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     member_name1: DataTypes.STRING,
     member_name2: DataTypes.STRING,
     member_name3: DataTypes.STRING,
-    member_name4: DataTypes.STRING,
-    image_path: DataTypes.STRING
+    member_name4: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'teams',

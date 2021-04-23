@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     phone: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
-    image_path: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'lost_and_founds',

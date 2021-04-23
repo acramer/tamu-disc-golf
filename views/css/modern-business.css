@@ -290,10 +290,3 @@ a.custom-card:hover {
 .background-card {
   background: rgba(145, 59, 59, 0.486);
 }
-
-.thumbnail {
-  border: 1px solid #ddd; /* Gray border */
-  border-radius: 4px;  /* Rounded border */
-  padding: 5px; /* Some padding */
-  width: 120px; /* Set a small width */
-}
