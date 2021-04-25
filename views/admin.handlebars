@@ -349,13 +349,24 @@
 
 <script>
     document.getElementById('event_submission').onsubmit= function(e){
-    e.preventDefault();
+        e.preventDefault();
+    }
+    document.getElementById('officer_submission').onsubmit= function(e){
+        e.preventDefault();
+    }
+    document.getElementById('team_submission').onsubmit= function(e){
+        e.preventDefault();
+    }
+    document.getElementById('gallery_submission').onsubmit= function(e){
+        e.preventDefault();
     }
 </script>
 
 <script>
     // Adding or modifying events
     async function add_event() {
+        var uuid = new Uint32Array(1);
+        window.crypto.getRandomValues(uuid);
         var title = document.getElementById("title").value
         var date = document.getElementById("date").value
         var time = document.getElementById("time").value
@@ -363,13 +374,15 @@
         var description = document.getElementById("description").value
         var id = document.getElementById("event_db_id").value
         var my_file = document.getElementById("event_image").files[0]
+        var comps = my_file.name.split('.')
+        var file_name = comps[0] + '-' + uuid + '.' + comps[1]
         if (!title || !date || !time || !place || !description || !my_file) {
             return
         }
         var date_time = date + " " + time
         if (!id) {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("title", title);
             data.append("date_time", date_time);
             data.append("place", place);
@@ -382,7 +395,7 @@
         }
         else {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("id", id);
             data.append("title", title);
             data.append("date_time", date_time);
@@ -405,18 +418,22 @@
 
     // Adding or modifying officers
     async function add_officer() {
+        var uuid = new Uint32Array(1);
+        window.crypto.getRandomValues(uuid);
         var name = document.getElementById("name").value
         var position = document.getElementById("position").value
         var email = document.getElementById("email").value
         var about = document.getElementById("about").value
         var id = document.getElementById("officer_db_id").value
         var my_file = document.getElementById("officers_image").files[0]
+        var comps = my_file.name.split('.')
+        var file_name = comps[0] + '-' + uuid + '.' + comps[1]
         if (!name || !position || !email || !about || !my_file) {
             return
         }
         if (!id) {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("name", name);
             data.append("position", position);
             data.append("email", email);
@@ -429,7 +446,7 @@
         }
         else {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("id", id);
             data.append("name", name);
             data.append("position", position);
@@ -452,6 +469,8 @@
 
     // Adding or modifying teams
     async function add_team() {
+        var uuid = new Uint32Array(1);
+        window.crypto.getRandomValues(uuid);
         var team_name = document.getElementById("team_name").value
         var member_name1 = document.getElementById("member_name1").value
         var member_name2 = document.getElementById("member_name2").value
@@ -459,12 +478,14 @@
         var member_name4 = document.getElementById("member_name4").value
         var id = document.getElementById("team_db_id").value
         var my_file = document.getElementById("teams_image").files[0]
+        var comps = my_file.name.split('.')
+        var file_name = comps[0] + '-' + uuid + '.' + comps[1]
         if (!team_name || !member_name1 || !member_name2 || !member_name3  || !member_name4 || !my_file) {
             return
         }
         if (!id) {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("team_name", team_name);
             data.append("member_name1", member_name1);
             data.append("member_name2", member_name2);
@@ -478,7 +499,7 @@
         }
         else {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("id", id);
             data.append("team_name", team_name);
             data.append("member_name1", member_name1);
@@ -502,16 +523,20 @@
 
     // Adding or modifying gallery items
     async function add_gallery() {
+        var uuid = new Uint32Array(1);
+        window.crypto.getRandomValues(uuid);
         var title = document.getElementById("gallery_title").value
         var description = document.getElementById("gallery_description").value
         var id = document.getElementById("gallery_db_id").value
         var my_file = document.getElementById("gallery_image").files[0]
+        var comps = my_file.name.split('.')
+        var file_name = comps[0] + '-' + uuid + '.' + comps[1]
         if (!title || !description || !my_file) {
             return
         }
         if (!id) {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("title", title);
             data.append("description", description);
             const options = {
@@ -522,7 +547,7 @@
         }
         else {
             var data = new FormData();
-            data.append("file", my_file);
+            data.append("file", my_file, file_name);
             data.append("id", id);
             data.append("title", title);
             data.append("description", description);

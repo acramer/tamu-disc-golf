@@ -52,17 +52,6 @@ app.use('/images', express.static(path.join(__dirname, 'views/images')));
 app.use('/prod-images', express.static(path.join(__dirname, 'views/prod-images')));
 app.use(require('./routes/index.js'));
 
-// Create directories for image if they don't exist
-var dir = 'views/prod-images/'
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-  fs.mkdirSync(dir + 'events');
-  fs.mkdirSync(dir + 'gallery');
-  fs.mkdirSync(dir + 'lostfound');
-  fs.mkdirSync(dir + 'officers');
-  fs.mkdirSync(dir + 'teams');
-}
-
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/profile",
     failureRedirect: "/login",

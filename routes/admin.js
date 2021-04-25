@@ -7,43 +7,60 @@ const db = require('../models/index.js');
 const { checkAuth, checkNotAuth, checkNotAdmin } = require("../authConfig.js");
 
 const multer = require("multer");
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
 
-const events_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "views/prod-images/events/");
+const s3_bucket = 'tdg-prod-images'
+const aws_url = 'https://tdg-prod-images.s3-us-west-1.amazonaws.com/'
+
+const events_storage = multerS3({
+  s3: new aws.S3(),
+  bucket: s3_bucket,
+  acl:'public-read',
+  metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+      cb(null, "events/" + file.originalname);
   }
-})
+});
 const events_upload = multer({ storage: events_storage });
 
-const officers_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "views/prod-images/officers/");
+const officers_storage = multerS3({
+  s3: new aws.S3(),
+  bucket: "tdg-prod-images",
+  acl:'public-read',
+  metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+      cb(null, "officers/" + file.originalname);
   }
 })
 const officers_upload = multer({ storage: officers_storage });
 
-const teams_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "views/prod-images/teams/");
+const teams_storage = multerS3({
+  s3: new aws.S3(),
+  bucket: "tdg-prod-images",
+  acl:'public-read',
+  metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+      cb(null, "teams/" + file.originalname);
   }
 })
 const teams_upload = multer({ storage: teams_storage });
 
-const gallery_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "views/prod-images/gallery/");
+const gallery_storage = multerS3({
+  s3: new aws.S3(),
+  bucket: "tdg-prod-images",
+  acl:'public-read',
+  metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+      cb(null, "gallery/" + file.originalname);
   }
 })
 const gallery_upload = multer({ storage: gallery_storage });
@@ -107,7 +124,7 @@ router.post('/event_add', checkNotAdmin, events_upload.single('file'), async (re
     event_date: req.body['date_time'], 
     event_place: req.body['place'], 
     event_description: req.body['description'],
-    image_path: "prod-images/events/" + req.file.originalname
+    image_path: aws_url + 'events/' + req.file.originalname
   })
   .then( (result) => {
     res.json(result);
@@ -120,7 +137,7 @@ router.put('/event_edit', checkNotAdmin, events_upload.single('file'), async (re
     event_date: req.body['date_time'], 
     event_place: req.body['place'], 
     event_description: req.body['description'],
-    image_path: "prod-images/events/" + req.file.originalname
+    image_path: aws_url + 'events/' + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -144,7 +161,7 @@ router.post('/officer_add', checkNotAdmin, officers_upload.single('file'), async
     about: req.body['about'], 
     email: req.body['email'], 
     position: req.body['position'],
-    image_path: "prod-images/officers/" + req.file.originalname
+    image_path: aws_url + 'officers/' + req.file.originalname
   })
   .then( (result) => {
       res.json(result) 
@@ -158,7 +175,7 @@ router.post('/team_add', checkNotAdmin, teams_upload.single('file'), async (req,
     member_name2: req.body['member_name2'], 
     member_name3: req.body['member_name3'],
     member_name4: req.body['member_name4'],
-    image_path: "prod-images/teams/" + req.file.originalname
+    image_path: aws_url + 'teams/' + req.file.originalname
   })
   .then( (result) => {
       res.json(result) 
@@ -171,7 +188,7 @@ router.put('/officer_edit', checkNotAdmin, officers_upload.single('file'), async
     about: req.body['about'], 
     email: req.body['email'], 
     position: req.body['position'],
-    image_path: "prod-images/officers/" + req.file.originalname
+    image_path: aws_url + 'officers/' + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -187,7 +204,7 @@ router.put('/team_edit', checkNotAdmin, teams_upload.single('file'), async (req,
     member_name2: req.body['member_name2'], 
     member_name3: req.body['member_name3'],
     member_name4: req.body['member_name4'],
-    image_path: "prod-images/teams/" + req.file.originalname
+    image_path: aws_url + 'teams/' + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })
@@ -218,7 +235,7 @@ router.post('/gallery_add', checkNotAdmin, gallery_upload.single('file'), async 
   await db.gallery_images.create({
     title: req.body['title'], 
     description: req.body['description'],
-    image_path: "prod-images/gallery/" + req.file.originalname
+    image_path: aws_url + 'gallery/' + req.file.originalname
   })
   .then( (result) => {
       res.json(result) 
@@ -229,7 +246,7 @@ router.put('/gallery_edit', checkNotAdmin, gallery_upload.single('file'), async 
   await db.gallery_images.update({
     title: req.body['title'], 
     description: req.body['description'],
-    image_path: "prod-images/gallery/" + req.file.originalname
+    image_path: aws_url + 'gallery/' + req.file.originalname
   }, {
     where: {id: req.body['id']} 
   })

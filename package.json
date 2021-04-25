@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/acramer/tamu-disc-golf#readme",
   "dependencies": {
+    "aws-sdk": "^2.891.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -29,6 +30,7 @@
     "handlebars-helpers": "^0.10.0",
     "mocha": "^8.2.1",
     "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "node-pre-gyp": "^0.16.0",
     "nyc": "^15.1.0",
     "passport": "^0.4.1",

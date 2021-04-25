@@ -5,13 +5,21 @@ var Sequelize = require('sequelize')
 const db = require('../models/index.js')
 
 const multer = require("multer");
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
 
-const lostfound_storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "views/prod-images/lostfound/");
+const s3_bucket = 'tdg-prod-images'
+const aws_url = 'https://tdg-prod-images.s3-us-west-1.amazonaws.com/'
+
+const lostfound_storage = multerS3({
+  s3: new aws.S3(),
+  bucket: s3_bucket,
+  acl:'public-read',
+  metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
   },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
+  key: function (req, file, cb) {
+      cb(null, "lostfound/" + file.originalname);
   }
 })
 const lostfound_upload = multer({ storage: lostfound_storage });
@@ -38,7 +46,7 @@ router.post('/add', lostfound_upload.single('file'), async (req, res) => {
       email: req.body['email'], 
       phone: req.body['number'],
       user_id: req.body['user_id'],
-      image_path: "prod-images/lostfound/" + req.file.originalname
+      image_path: aws_url + 'lostfound/' + req.file.originalname
     })
     .then( (result) => {
         res.json(result) 
